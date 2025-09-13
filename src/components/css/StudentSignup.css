@@ -1,0 +1,87 @@
+.signup-container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.left-panel {
+  flex: 1;
+  background-color: #fcbf49;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-logo {
+  width: 250px;
+}
+
+.brand-name {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #7a1c1c;
+}
+
+.right-panel {
+  flex: 1;
+  background-color: #fff;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.small-logo {
+  width: 80px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.signup-form {
+  width: 100%;
+  max-width: 450px;  /* slightly wider for even layout */
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-group {
+  flex: 1;  /* makes both inputs in a row take equal width */
+  display: flex;
+  flex-direction: column;
+   margin-bottom: 20px;  
+}
+
+input {
+  padding: 8px;
+  border: 1px solid #b22222;
+  border-radius: 4px;
+  width: 100%;  /* ensures full width inside .form-group */
+  box-sizing: border-box;
+}
+
+.btn {
+  width: 100%;   /* same width as form */
+  padding: 10px;
+  margin-top: 10px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.confirm {
+  background-color: #fcbf49;
+}
+
+.cancel {
+  background-color: #fff3cd;
+  border: 1px solid #fcbf49;
+  margin-top: 10px;
+}

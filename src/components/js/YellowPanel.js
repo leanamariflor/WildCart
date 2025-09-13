@@ -1,7 +1,7 @@
 // components/YellowPanel.js
 import React from "react";
-import "./YellowPanel.css";
-import logo from "../assets/logo.png";
+import "../css/YellowPanel.css";
+import logo from "../../assets/logo.png";
 
 const YellowPanel = () => {
   return (

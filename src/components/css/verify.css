@@ -1,0 +1,48 @@
+.success-right {
+  flex: 1;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.success-right h2 {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: black;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.checkmark {
+  font-size: 100px;
+  color: green;
+  margin: 20px 0;
+}
+
+.get-started-btn {
+  background: linear-gradient(to right, #ffcc66, #ffb73c);
+  border: 1px solid #e69c2e;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-weight: bold;
+  color: #7a2d2d;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.get-started-btn:hover {
+  background: linear-gradient(to right, #ffb73c, #ffcc66);
+}
+
+.success{
+  height: 200px;
+  width: 200px;
+}
+
+.get-started-btn{
+  margin-top: 30px;
+}

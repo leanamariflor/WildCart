@@ -1,8 +1,8 @@
 // LandingPage.js
 import React from "react";
-import YellowPanel from "./components/YellowPanel";
+import YellowPanel from "./YellowPanel";
 import { useNavigate } from "react-router-dom";
-import "./LandingPage.css";
+import "../css/LandingPage.css";
 
 function LandingPage() {
   const navigate = useNavigate();

@@ -1,7 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from "./LandingPage";
-import LoginForm from "./components/LoginForm";
+import LandingPage from "./components/js/LandingPage";
+import LoginForm from "./components/js/LoginForm";
+import Signup from "./components/js/Signup";
+import StudentSignup from "./components/js/StudentSignup";
+import SellerSignup from "./components/js/SellerSignup";
+import Verify from "./components/js/Verify";
+import Success from "./components/js/Success";
 
 function App() {
   return (
@@ -9,6 +14,14 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginForm />} />
+         <Route path="/signup" element={<Signup />} />
+         <Route path="/signup/student" element={<StudentSignup />} />
+         <Route path="/signup/seller" element={<SellerSignup />} />
+         <Route path="/verify" element={<Verify />} />
+         <Route path="/success" element={<Success />} />
+        <Route path="/get-started-btn" element={<LoginForm />} />
+
+
       </Routes>
     </Router>
   );

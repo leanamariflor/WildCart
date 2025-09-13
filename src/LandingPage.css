@@ -1,0 +1,39 @@
+/* LandingPage.css */
+.landing-page {
+  display: flex;
+  height: 100vh;
+}
+
+.right-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px;
+  background-color: #ffffff;
+}
+
+.right-side h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.right-side p {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.get-started-btn {
+  padding: 12px 24px;
+  background-color: #fbcf74;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.get-started-btn:hover {
+  background-color: #fcd873;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}

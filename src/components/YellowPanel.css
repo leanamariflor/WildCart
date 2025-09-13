@@ -1,0 +1,10 @@
+/* components/YellowPanel.css */
+.yellow-panel {
+  flex: 1;               /* keep it flexible */
+  max-width: 50%;        /* limit it to half the screen */
+  min-width: 300px;      /* optional: don't shrink too small */
+  background-color: #f7d67a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -2,7 +2,7 @@ import React from "react";
 import YellowPanel from "./YellowPanel";
 import favicon from "../../assets/favicon.png";
 import { useNavigate } from "react-router-dom";
-import "../css/StudentSignup.css"; // Create CSS for styling
+import "../css/StudentSignup.css"; 
 
 const StudentSignup = () => {
     const navigate = useNavigate();
@@ -11,7 +11,6 @@ const StudentSignup = () => {
     <div className="signup-container">
        <YellowPanel />
 
-      {/* Right Panel */}
       <div className="right-panel">
         <img src={favicon} alt="WildCart Logo" className="small-logo" />
         <h2>SIGN-UP STUDENT</h2>

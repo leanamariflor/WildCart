@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import YellowPanel from "./YellowPanel";
-import { useNavigate } from "react-router-dom";   // ✅ add this
+import { useNavigate } from "react-router-dom";   
 import "../css/LoginForm.css";
 import favicon from "../../assets/favicon.png";
 
@@ -8,7 +8,7 @@ const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();   // ✅ define navigate
+  const navigate = useNavigate();  
 
   const handleLogin = (e) => {
     e.preventDefault();

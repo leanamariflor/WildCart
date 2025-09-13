@@ -1,4 +1,3 @@
-// LandingPage.js
 import React from "react";
 import YellowPanel from "./YellowPanel";
 import { useNavigate } from "react-router-dom";

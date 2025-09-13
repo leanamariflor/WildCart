@@ -10,10 +10,8 @@ const Success = () => {
 
   return (
     <div className="signup-container">
-      {/* Left yellow panel */}
       <YellowPanel />
 
-      {/* Right panel */}
       <div className="success-right">
         <img src={favicon} alt="WildCart Logo" className="small-logo" />
 

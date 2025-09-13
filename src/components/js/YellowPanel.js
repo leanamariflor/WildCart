@@ -1,4 +1,3 @@
-// components/YellowPanel.js
 import React from "react";
 import "../css/YellowPanel.css";
 import logo from "../../assets/logo.png";

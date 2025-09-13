@@ -5,11 +5,10 @@ import favicon from "../../assets/favicon.png";
 import { useNavigate } from "react-router-dom";
 
 const Verify = () => {
-  const [status, setStatus] = useState("waiting"); // "waiting" | "verified"
+  const [status, setStatus] = useState("waiting"); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // After 3 seconds, change status to verified and navigate
     const timer = setTimeout(() => {
       setStatus("verified");
       navigate("/success");

@@ -11,10 +11,8 @@ const Signup = () => {
 
   return (
     <div className="signup-container">
-      {/* Left side: Yellow panel */}
       <YellowPanel />
 
-      {/* Right side: Signup role selection */}
       <div className="signup-right">
         <img src={favicon} alt="WildCart Logo" className="small-logo" />
         <h2>SIGN UP</h2>

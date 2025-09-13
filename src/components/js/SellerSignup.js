@@ -2,7 +2,7 @@ import React from "react";
 import YellowPanel from "./YellowPanel";
 import favicon from "../../assets/favicon.png";
 import { useNavigate } from "react-router-dom";
-import "../css/StudentSignup.css"; // Create CSS for styling
+import "../css/StudentSignup.css";
 
 const SellerSignup = () => {
     const navigate = useNavigate();

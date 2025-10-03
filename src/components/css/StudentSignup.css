@@ -85,3 +85,18 @@ input {
   border: 1px solid #fcbf49;
   margin-top: 10px;
 }
+@media (max-width: 768px) {
+  .signup-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .left-panel, .right-panel {
+    flex: unset;
+    width: 100%;
+  }
+
+  .signup-form {
+    max-width: 100%;
+  }
+}

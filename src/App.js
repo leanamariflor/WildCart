@@ -7,6 +7,7 @@ import StudentSignup from "./components/js/StudentSignup";
 import SellerSignup from "./components/js/SellerSignup";
 import Verify from "./components/js/Verify";
 import Success from "./components/js/Success";
+import Home from "./components/js/Home";  
 import StudentProfile from "./components/js/StudentProfile";
 import SellerProfile from "./components/js/SellerProfile";
 import { UserProvider } from "./context/UserContext";
@@ -59,11 +60,10 @@ function App() {
          <Route path="/signup/seller" element={<SellerSignup />} />
          <Route path="/verify" element={<Verify />} />
          <Route path="/success" element={<Success />} />
-        <Route path="/get-started-btn" element={<LoginForm />} />
-
+         <Route path="/get-started-btn" element={<LoginForm />} />
+         <Route path="/home" element={<Home />} />
+         <Route path="/get-started-btn" element={<LoginForm />} />
          <Route path="/student_profile" element={<StudentProfile />} /> 
-
-
       </Routes>
     </Router>
   );

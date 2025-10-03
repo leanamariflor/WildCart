@@ -7,6 +7,7 @@ import StudentSignup from "./components/js/StudentSignup";
 import SellerSignup from "./components/js/SellerSignup";
 import Verify from "./components/js/Verify";
 import Success from "./components/js/Success";
+import Home from "./components/js/Home";  
 
 function App() {
   return (
@@ -19,9 +20,10 @@ function App() {
          <Route path="/signup/seller" element={<SellerSignup />} />
          <Route path="/verify" element={<Verify />} />
          <Route path="/success" element={<Success />} />
-        <Route path="/get-started-btn" element={<LoginForm />} />
+         <Route path="/get-started-btn" element={<LoginForm />} />
+         <Route path="/home" element={<Home />} />
 
-
+         
       </Routes>
     </Router>
   );

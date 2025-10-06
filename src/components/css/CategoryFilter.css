@@ -1,0 +1,43 @@
+.category-filter {
+  background-color: #fef3c7;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  border: 2px solid #fde68a;
+  margin-top: 60px;
+}
+
+.category-filter-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1.5rem;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.category-checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #9ca3af;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.category-label {
+  color: #1f2937;
+}
+
+.category-item:hover .category-label {
+  color: #111827;
+}

@@ -10,6 +10,7 @@ import Success from "./components/js/Success";
 import Home from "./components/js/Home";  
 import StudentProfile from "./components/js/StudentProfile";
 import SellerProfile from "./components/js/SellerProfile";
+import ProductsPage from './components/js/ProductsPage';
 import { UserProvider } from "./context/UserContext";
 
 
@@ -28,6 +29,8 @@ function App() {
           <Route path="/get-started-btn" element={<LoginForm />} />
           <Route path="/seller_profile" element={<SellerProfile />} />
           <Route path="/student_profile" element={<StudentProfile />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/products" element={<ProductsPage />} />
          
         </Routes>
       </Router>

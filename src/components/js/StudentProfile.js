@@ -9,6 +9,9 @@ const StudentProfile = () => {
   if (!studentData) {
     return <p>No student data found. Please sign up first.</p>;
   }
+   // <-- Define icons here
+  const ordersIcon = "https://cdn-icons-png.flaticon.com/512/1007/1007959.png";
+  const orderHistoryIcon = "https://cdn-icons-png.flaticon.com/512/2822/2822537.png";
 
   return (
     <div className="profile-page">
@@ -48,11 +51,11 @@ const StudentProfile = () => {
         {/* Right Section: Actions */}
         <div className="profile-right">
           <div className="card">
-            <span className="card-icon">🛍️</span>
+           <img src={ordersIcon} alt="Orders Icon" className="card-icon-img" />
             <h3>Orders</h3>
           </div>
           <div className="card">
-            <span className="card-icon">📜</span>
+            <img src={orderHistoryIcon} alt="Order History Icon" className="card-icon-img" />
             <h3>Order History</h3>
           </div>
         </div>

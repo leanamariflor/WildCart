@@ -111,4 +111,12 @@
     height: 50px;
     font-size: 20px;
 }
+.card-icon-img {
+  width: 70px;       /* make it small like an emoji */
+  height: 70px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 5px auto; /* center horizontally and small space below */
+}
+
 

@@ -1,23 +1,13 @@
-<<<<<<< HEAD
-import { createContext, useState } from "react";
-=======
 import React, { createContext, useState } from "react";
->>>>>>> richelle
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-<<<<<<< HEAD
   const [user, setUser] = useState(null); // logged-in buyer info
+  const [studentData, setStudentData] = useState(null); // student info
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-=======
-  const [studentData, setStudentData] = useState(null);
-
-  return (
-    <UserContext.Provider value={{ studentData, setStudentData }}>
->>>>>>> richelle
+    <UserContext.Provider value={{ user, setUser, studentData, setStudentData }}>
       {children}
     </UserContext.Provider>
   );

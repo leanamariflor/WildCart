@@ -16,6 +16,7 @@ import CartPage from "./components/js/CartPage";
 import ViewProduct from "./components/js/ViewProduct";
 import CheckoutPage from "./components/js/CheckoutPage";
 import Header from "./components/js/Header";
+import HelpPage from "./components/js/HelpPage";
 import { UserProvider } from "./context/UserContext";
 import { SelectionProvider } from "./context/SelectionContext";
 import { CartProvider } from "./context/CartContext";
@@ -43,6 +44,7 @@ function App() {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/view-product" element={<ViewProduct />} />
               <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/help" element={<HelpPage />} />
 
             </Routes>
           </Router>

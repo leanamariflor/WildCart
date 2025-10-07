@@ -3,6 +3,12 @@ import "../css/SellerProfile.css";
 import favicon from "../../assets/favicon.png"; // adjust path if needed
 
 const SellerProfile = () => {
+
+   const productsPostedIcon = "https://cdn-icons-png.flaticon.com/512/1950/1950373.png";
+  const ordersReservationsIcon = "https://cdn-icons-png.flaticon.com/512/7841/7841177.png";
+  const doneOrdersIcon = "https://cdn-icons-png.flaticon.com/512/3877/3877266.png";
+  const postProductIcon = "https://cdn-icons-png.flaticon.com/512/3032/3032220.png";
+
   return (
     <div className="profile-page">
       {/* Header */}
@@ -28,27 +34,27 @@ const SellerProfile = () => {
             className="profile-image"
           />
           <h2 className="profile-name">Seller Name</h2>
-          <p className="profile-info">Store Name: Sample Store</p>
-          <p className="profile-info">Mobile No. 09XX-XXX-XXXX</p>
+          <p className="profile-info">Name: Sophia Cruz</p>
+          <p className="profile-info">Mobile No. 09547321452</p>
           <button className="edit-profile-btn">Edit Profile</button>
         </div>
 
         {/* Right Section: Actions */}
         <div className="profile-right">
           <div className="card">
-            <span className="card-icon">📦</span>
+           <img src={productsPostedIcon} alt="Products Posted" className="card-icon-img" />
             <h3>Products Posted</h3>
           </div>
           <div className="card">
-            <span className="card-icon">📑</span>
+             <img src={ordersReservationsIcon} alt="Orders & Reservations" className="card-icon-img" />
             <h3>Orders & Reservations</h3>
           </div>
           <div className="card">
-            <span className="card-icon">✔</span>
+           <img src={doneOrdersIcon} alt="Done Orders" className="card-icon-img" />
             <h3>Done Orders</h3>
           </div>
           <div className="card">
-            <span className="card-icon">＋</span>
+             <img src={postProductIcon} alt="Post a Product" className="card-icon-img" />
             <h3>Post a Product</h3>
           </div>
         </div>

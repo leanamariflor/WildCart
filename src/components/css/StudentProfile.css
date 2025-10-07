@@ -1,39 +1,42 @@
+/* PAGE */
 .profile-page {
   font-family: Arial, sans-serif;
   background: linear-gradient(to bottom, #fff5e1, #fcbf49);
   min-height: 100vh;
-  padding: 20px;
+  padding: 0 20px;
+   /* no top padding */
 }
 
-/* Header */
-.profile-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* HEADER */
+.navbar {
+  position: fixed;   /* stick to top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #fff5e1; /* match page */
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin: 0;
+ height: 80px;
+  margin-bottom: 180px;
 }
 
-.small-logo {
-  width: 50px;
-}
-
-.header-right button {
-  background: none;
-  border: none;
-  margin-left: 15px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-/* Main Container */
+/* MAIN CONTAINER */
 .profile-container {
   display: flex;
   justify-content: space-between;
-  margin-top: 100px;
+  gap: 20px;
   padding: 20px;
-  gap: 20px; /* add this line to slightly reduce distance */
+  margin-top: 180px; /* ⬅️ increase to push content a bit lower */
 }
 
-/* Left Profile */
+/* Force spacing below the fixed navbar */
+.profile-page .profile-container {
+  margin-top: 160px !important; /* adjust: 160–200px for preferred gap */
+}
+
+/* LEFT PROFILE */
 .profile-left {
   flex: 1;
   text-align: center;
@@ -58,16 +61,18 @@
 }
 
 .edit-profile-btn {
+  width: 150px;
+  height: 50px;
+  font-size: 20px;
   background: #7a1c1c;
   color: white;
-  padding: 8px 16px;
   border: none;
   border-radius: 6px;
   margin-top: 15px;
   cursor: pointer;
 }
 
-/* Right Cards */
+/* RIGHT CARDS */
 .profile-right {
   flex: 1;
   display: flex;
@@ -77,46 +82,28 @@
 }
 
 .card {
-  background: #fcbf49;   /* lighter yellow so maroon pops */
+  background: #fcbf49;
   width: 250px;
   height: 250px;
   border-radius: 12px;
-  border: 5px solid #7a1c1c;  /* maroon border */
+  border: 5px solid #7a1c1c;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   cursor: pointer;
   transition: transform 0.2s ease;
 }
-
 
 .card:hover {
   transform: translateY(-5px);
 }
 
-.card-icon {
-  font-size: 90px;
-  margin-bottom: 10px;
-}
-
-.icon {
-  font-size: 28px;   /* force bigger emoji */
-  display: inline-block;
-  line-height: 1;
-}
-.edit-profile-btn{
-    width: 150px;
-    height: 50px;
-    font-size: 20px;
-}
 .card-icon-img {
-  width: 70px;       /* make it small like an emoji */
+  width: 70px;
   height: 70px;
   object-fit: contain;
   display: block;
-  margin: 0 auto 5px auto; /* center horizontally and small space below */
+  margin: 0 auto 5px auto;
 }
-
-

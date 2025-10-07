@@ -1,19 +1,18 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import YellowPanel from "./YellowPanel";
 import favicon from "../../assets/favicon.png";
 import { useNavigate } from "react-router-dom";
-import "../css/StudentSignup.css"; 
-import { UserContext } from "../../context/UserContext";
+import "../css/StudentSignup.css";
+import axios from "axios";
 
 const StudentSignup = () => {
   const navigate = useNavigate();
-  const { setStudentData } = useContext(UserContext);
 
   const [formData, setFormData] = useState({
     studentId: "",
-    firstName: "",   // ⬅️ corrected naming
-    lastName: "",    // ⬅️ corrected naming
-    username: "",
+    firstName: "",
+    lastName: "",
+    email: "",
     number: "",
     password: "",
     confirmPassword: ""
@@ -23,109 +22,81 @@ const StudentSignup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
 
-    // save data to global context
-    setStudentData(formData);
+    try {
+      const response = await axios.post("http://localhost:8080/api/buyers/register", {
+        studentId: formData.studentId,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        number: formData.number,
+        password: formData.password
+      });
 
-    // go directly to profile
-    navigate("/student_profile");
+      console.log(response.data);
+      alert("Registration successful!");
+      navigate("/login");
+    } catch (error) {
+      console.error(error.response?.data || error.message);
+      alert("Registration failed: " + (error.response?.data || error.message));
+    }
   };
 
   return (
     <div className="signup-container">
       <YellowPanel />
-
       <div className="right-panel">
         <img src={favicon} alt="WildCart Logo" className="small-logo" />
         <h2>SIGN-UP STUDENT</h2>
 
         <form className="signup-form" onSubmit={(e) => e.preventDefault()}>
           <div className="form-group">
-            <label htmlFor="studentId">STUDENT-ID</label>
-            <input 
-              type="text" 
-              name="studentId" 
-              value={formData.studentId} 
-              onChange={handleChange} 
-            />
+            <label>STUDENT-ID</label>
+            <input type="text" name="studentId" value={formData.studentId} onChange={handleChange} />
           </div>
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="firstName">FIRSTNAME</label>
-              <input 
-                type="text" 
-                name="firstName" 
-                value={formData.firstName} 
-                onChange={handleChange} 
-              />
+              <label>FIRSTNAME</label>
+              <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} />
             </div>
             <div className="form-group">
-              <label htmlFor="lastName">LASTNAME</label>
-              <input 
-                type="text" 
-                name="lastName" 
-                value={formData.lastName} 
-                onChange={handleChange} 
-              />
+              <label>LASTNAME</label>
+              <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} />
             </div>
           </div>
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="username">USERNAME</label>
-              <input 
-                type="text" 
-                name="username" 
-                value={formData.username} 
-                onChange={handleChange} 
-              />
+              <label>EMAIL</label>
+              <input type="email" name="email" value={formData.email} onChange={handleChange} />
             </div>
             <div className="form-group">
-              <label htmlFor="number">NUMBER</label>
-              <input 
-                type="text" 
-                name="number" 
-                value={formData.number} 
-                onChange={handleChange} 
-              />
+              <label>NUMBER</label>
+              <input type="text" name="number" value={formData.number} onChange={handleChange} />
             </div>
           </div>
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="password">PASSWORD</label>
-              <input 
-                type="password" 
-                name="password" 
-                value={formData.password} 
-                onChange={handleChange} 
-              />
+              <label>PASSWORD</label>
+              <input type="password" name="password" value={formData.password} onChange={handleChange} />
             </div>
             <div className="form-group">
-              <label htmlFor="confirmPassword">CONFIRM PASSWORD</label>
-              <input 
-                type="password" 
-                name="confirmPassword" 
-                value={formData.confirmPassword} 
-                onChange={handleChange} 
-              />
+              <label>CONFIRM PASSWORD</label>
+              <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
             </div>
           </div>
 
           <button type="button" className="btn confirm" onClick={handleConfirm}>
             CONFIRM
           </button>
-          <button 
-            type="button" 
-            className="btn cancel" 
-            onClick={() => navigate("/signup")}
-          >
+          <button type="button" className="btn cancel" onClick={() => navigate("/signup")}>
             CANCEL
           </button>
         </form>
@@ -135,83 +106,3 @@ const StudentSignup = () => {
 };
 
 export default StudentSignup;
-
-
-/*import React from "react";
-import YellowPanel from "./YellowPanel";
-import favicon from "../../assets/favicon.png";
-import { useNavigate } from "react-router-dom";
-import "../css/StudentSignup.css"; 
-
-const StudentSignup = () => {
-    const navigate = useNavigate();
-  
-  return (
-    <div className="signup-container">
-       <YellowPanel />
-
-      <div className="right-panel">
-        <img src={favicon} alt="WildCart Logo" className="small-logo" />
-        <h2>SIGN-UP STUDENT</h2>
-
-        <form className="signup-form">
-          <div className="form-group">
-            <label>STUDENT-ID</label>
-            <input type="text" />
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label>FIRSTNAME</label>
-              <input type="text" />
-            </div>
-            <div className="form-group">
-              <label>LASTNAME</label>
-              <input type="text" />
-            </div>
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label>USERNAME</label>
-              <input type="text" />
-            </div>
-            <div className="form-group">
-              <label>NUMBER</label>
-              <input type="text" />
-            </div>
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label>PASSWORD</label>
-              <input type="password" />
-            </div>
-            <div className="form-group">
-              <label>CONFIRM PASSWORD:</label>
-              <input type="password" />
-            </div>
-          </div>
-
-           <button
-          type="button"
-          className="btn confirm"
-          onClick={() => navigate("/verify")}  
-        >
-            CONFIRM
-          </button>
-          <button
-          type="button"
-          className="btn cancel"
-          onClick={() => navigate("/signup")}  
-        >
-         CANCEL
-        </button>
-        </form>
-      </div>
-    </div>
-  );
-};
-
-export default StudentSignup;
-*/

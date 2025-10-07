@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../css/OrdersPage.css";
-import favicon from "../../assets/favicon.png";
-import { Search, HelpCircle, ShoppingCart, Settings, ChevronDown } from "lucide-react";
+import Header from "./Header"; 
+import { ChevronDown } from "lucide-react";
 
 const OrdersPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -17,41 +17,8 @@ const OrdersPage = () => {
 
   return (
     <div className="orders-page">
-      <header className="order-header">
-        <div className="header-container">
-          <div className="header-content">
-            <div classgName="loo-container">
-              <img src={favicon} alt="WildCart Logo" className="small-logo" />      
-            </div>
+            <Header />
 
-            <div className="search-container">
-              <input
-                type="text"
-                placeholder="Search orders..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="search-input"
-              />
-              <button className="search-button">
-                <Search className="w-4 h-4 text-gray-900" />
-              </button>
-            </div>
-
-            <div className="header-actions">
-              <button className="header-button">
-                <HelpCircle className="w-6 h-6" />
-              </button>
-              <button className="header-button">Profile</button>
-              <button className="cart-button">
-                <ShoppingCart className="w-5 h-5" />
-              </button>
-              <button className="header-button">
-                <Settings className="w-6 h-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
 
       <section className="orders-section">
         <div className="sort-container">

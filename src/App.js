@@ -15,6 +15,7 @@ import OrdersPage from "./components/js/OrdersPage";
 import CartPage from "./components/js/CartPage";
 import ViewProduct from "./components/js/ViewProduct";
 import CheckoutPage from "./components/js/CheckoutPage";
+import Header from "./components/js/Header";
 import { UserProvider } from "./context/UserContext";
 import { SelectionProvider } from "./context/SelectionContext";
 import { CartProvider } from "./context/CartContext";

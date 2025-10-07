@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Search, HelpCircle, ShoppingCart, Settings } from "lucide-react";
 import "../css/CheckoutPage.css";
-import favicon from "../../assets/favicon.png";
 import { useCart } from "../../context/CartContext";
+import Header from "./Header"; 
+
 
 export default function CheckoutPage() {
   const { cartItems, removeFromCart, clearCart } = useCart();
@@ -29,34 +29,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="checkout-page">
-      {/* HEADER */}
-      <header className="cart-header">
-        <div className="header-container">
-          <div className="header-content">
-            <div className="logo-container">
-              <img src={favicon} alt="WildCart Logo" className="small-logo" />
-            </div>
-            <div className="search-container">
-              <input type="text" placeholder="Search products..." className="search-input" />
-              <button className="search-button">
-                <Search className="w-4 h-4 text-gray-900" />
-              </button>
-            </div>
-            <div className="header-actions">
-              <button className="header-button">
-                <HelpCircle className="w-6 h-6" /> Help
-              </button>
-              <button className="header-button">Profile</button>
-              <button className="cart-button">
-                <ShoppingCart className="w-5 h-5" />
-              </button>
-              <button className="header-button">
-                <Settings className="w-6 h-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+  <Header />      
 
       {/* MAIN CONTENT */}
       <main className="checkout-container">

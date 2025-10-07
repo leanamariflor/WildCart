@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Search, ShoppingCart, Settings, HelpCircle, ChevronDown } from 'lucide-react';
+import {  ChevronDown } from 'lucide-react';
 import { ProductCard } from './ProductCard';
 import { CategoryFilter } from './CategoryFilter';
 import { products, categories } from '../../data/mockdata';
-import favicon from "../../assets/favicon.png";
 import "../css/Product.css";
+
 
 export function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -35,49 +35,6 @@ export function ProductsPage() {
 
   return (
     <div className="product-page">
-      <header className="product-header">
-        <div className="header-container">
-          <div className="header-content">
-            <div className="logo-container">
-              <div className="logo-icon">
-                <img src={favicon} alt="WildCart Logo" className="small-logo"/>
-              </div>
-            </div>
-
-            <div className="search-container">
-              <input
-                type="text"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="search-input"
-              />
-              <button className="search-button">
-                <Search className="w-4 h-4 text-gray-900" />
-              </button>
-            </div>
-
-            <div className="header-actions">
-              <button className="header-button">
-                <HelpCircle className="w-6 h-6" />
-              </button>
-              <button className="header-button">
-                Profile
-              </button>
-              <button className="cart-button">
-                <ShoppingCart className="w-5 h-5" />
-              </button>
-              <button className="header-button">
-                <Settings className="w-6 h-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* <div className="breadcrumb">
-        <div className="breadcrumb-container">Product Page</div>
-      </div> */}
 
       <main className="main-content">
         <div className="content-wrapper">

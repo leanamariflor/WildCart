@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
-import { Search, HelpCircle, ShoppingCart, Settings } from "lucide-react";
 import "../css/ViewProduct.css";
-import favicon from "../../assets/favicon.png";
+import Header from "./Header"; 
+
 
 export default function ViewProduct() {
-  const { addToCart, cartItems } = useCart(); // ✅ single context for cart
+  const { addToCart, cartItems } = useCart();
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ export default function ViewProduct() {
   const decrement = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
 
   const handleAddToCart = () => {
-    addToCart({ ...product, quantity }); // ✅ instantly adds
+    addToCart({ ...product, quantity }); 
   };
 
   const handleGoToCart = () => {
@@ -32,45 +32,7 @@ export default function ViewProduct() {
 
   return (
     <div className="viewproduct-page">
-      {/* HEADER */}
-      <header className="cart-header">
-        <div className="header-container">
-          <div className="header-content">
-            <div className="logo-container">
-              <img src={favicon} alt="WildCart Logo" className="small-logo" />
-            </div>
-
-            <div className="search-container">
-              <input
-                type="text"
-                placeholder="Search products..."
-                className="search-input"
-              />
-              <button className="search-button">
-                <Search className="w-4 h-4 text-gray-900" />
-              </button>
-            </div>
-
-            <div className="header-actions">
-              <button className="header-button">
-                <HelpCircle className="w-6 h-6" /> Help
-              </button>
-              <button className="header-button">Profile</button>
-
-              <button className="cart-button" onClick={handleGoToCart}>
-                <ShoppingCart className="w-5 h-5" />
-                {cartItems.length > 0 && (
-                  <span className="cart-count">{cartItems.length}</span>
-                )}
-              </button>
-
-              <button className="header-button">
-                <Settings className="w-6 h-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+        <Header />
 
       {/* MAIN */}
       <main className="viewproduct-content">

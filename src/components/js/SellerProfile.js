@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "./Header";
 import "../css/SellerProfile.css";
 import favicon from "../../assets/favicon.png"; // adjust path if needed
 
@@ -11,7 +12,7 @@ const SellerProfile = () => {
 
   return (
     <div className="profile-page">
-      {/* Header */}
+       <Header />  {/* header first */}
       <div className="profile-header">
         <div className="header-left">
           <img src={favicon} alt="WildCart Logo" className="small-logo" />
@@ -33,9 +34,9 @@ const SellerProfile = () => {
             alt="Profile"
             className="profile-image"
           />
-          <h2 className="profile-name">Seller Name</h2>
-          <p className="profile-info">Name: Sophia Cruz</p>
-          <p className="profile-info">Mobile No. 09547321452</p>
+          <h2 className="profile-name">Sophia Cruz</h2>
+          <p className="profile-info">23-9756-345</p>
+          <p className="profile-info">Mobile No.: 098643624443</p>
           <button className="edit-profile-btn">Edit Profile</button>
         </div>
 

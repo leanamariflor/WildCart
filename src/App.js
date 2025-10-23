@@ -19,6 +19,7 @@ import Header from "./components/js/Header";
 import HelpPage from "./components/js/HelpPage";
 import PostedPage from "./components/js/PostedPage";
 import AboutPage from "./components/js/AboutPage";
+import SettingsPage from "./components/js/SettingsPage";
 import { UserProvider } from "./context/UserContext";
 import { SelectionProvider } from "./context/SelectionContext";
 import { CartProvider } from "./context/CartContext";
@@ -49,6 +50,7 @@ function App() {
               <Route path="/help" element={<HelpPage />} />
               <Route path="/posted" element={<PostedPage />} />
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
 
             </Routes>
           </Router>

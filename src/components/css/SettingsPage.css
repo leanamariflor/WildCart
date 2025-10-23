@@ -1,0 +1,82 @@
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #fff5e1, #f6b73c);
+  font-family: "Poppins", sans-serif;
+}
+
+.settings-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex: 1;
+  padding: 40px;
+}
+
+.settings-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings-gear {
+  width: 300px;
+  height: auto;
+  filter: brightness(0) saturate(100%) invert(14%) sepia(100%) saturate(3471%)
+    hue-rotate(348deg) brightness(88%) contrast(101%);
+}
+
+.settings-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.settings-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.button-row {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.settings-btn {
+  background-color: #f6b73c;
+  color: #3b0b08;
+  font-weight: 600;
+  border: 2px solid #89261d;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.settings-btn:hover {
+  background-color: #d38b22;
+}
+
+.logout-btn {
+  background-color: #89261d;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 12px 40px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 2px 2px 0 #631a13;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #701b13;
+}

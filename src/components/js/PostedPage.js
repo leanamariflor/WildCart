@@ -3,7 +3,7 @@ import Header from "./Header";
 import React from "react";
 import "../css/PostedPage.css";
 
-function App() {
+function PostedPage() {
   const posts = [
     { id: "001", name: "Cookies", status: "In stock", amount: "3x", address: "NGE Study Area", date: "2025-09-10", postStatus: "Posted" },
     { id: "002", name: "Bracelet", status: "In stock", amount: "5x", address: "Espacio", date: "2025-09-11", postStatus: "Posted" },
@@ -69,4 +69,4 @@ function App() {
   );
 }
 
-export default App;
+export default PostedPage;

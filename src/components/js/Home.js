@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Product from "./ProductsPage"
 import "../css/HomePage.css";
+import banner1 from "../../assets/banner1.jpg";
+import banner2 from "../../assets/banner2.jpg";
+import banner3 from "../../assets/banner3.jpg";
 
 export default function Home() {
-  const images = [
-    "https://picsum.photos/id/1015/1200/500",
-    "https://picsum.photos/id/1016/1200/500",
-    "https://picsum.photos/id/1018/1200/500",
-  ];
-
+  const images = [banner1, banner2, banner3];
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {

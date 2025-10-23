@@ -17,6 +17,7 @@ import ViewProduct from "./components/js/ViewProduct";
 import CheckoutPage from "./components/js/CheckoutPage";
 import Header from "./components/js/Header";
 import HelpPage from "./components/js/HelpPage";
+import PostedPage from "./components/js/PostedPage";
 import { UserProvider } from "./context/UserContext";
 import { SelectionProvider } from "./context/SelectionContext";
 import { CartProvider } from "./context/CartContext";
@@ -45,6 +46,7 @@ function App() {
               <Route path="/view-product" element={<ViewProduct />} />
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/help" element={<HelpPage />} />
+              <Route path="/posted" element={<PostedPage />} />
 
             </Routes>
           </Router>

@@ -25,7 +25,8 @@ const Header = () => {
       </div>
 
       <div className="nav-links">
-        <span>Help</span>
+        <Link to="/home" className="nav-link">Home</Link>
+        <Link to="/help" className="nav-link">Help</Link>
         <Link to="/student_profile" className="nav-link">Profile</Link>
         <Link to="/cart" className="nav-link cart-icon">
           <FaShoppingCart className="icon" />

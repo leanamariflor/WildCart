@@ -1,9 +1,10 @@
 .category-filter {
   background-color: #fef3c7;
   border-radius: 0.5rem;
-  padding: 1.5rem;
+  padding: 2rem;
   border: 2px solid #fde68a;
   margin-top: 60px;
+  margin-left: 30px;
 }
 
 .category-filter-title {

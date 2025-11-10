@@ -16,17 +16,18 @@
   margin: 0;
   padding: 20px;
   text-align: center;
-  height: 170px;
+  height: 180px;
   width: auto;
   background: linear-gradient(to bottom, #FFD86F, #FFB347);
 }
 
 .banner h1 {
-  font-size: 36px;
+  font-size: 40px;
   font-weight: bold;
   color: #000;
   text-align: center;
   margin: 45px 0;
+  margin-top: 90px;
 }
 
 /* Slider */
@@ -37,6 +38,7 @@
   margin: 0;          
   overflow: hidden;
   border-radius: 0;  
+  margin-top: auto;
 }
 
 .slide {
@@ -77,4 +79,7 @@
 
 .dot.active {
   background: #333;
+}
+.product{
+  margin-top: auto;
 }

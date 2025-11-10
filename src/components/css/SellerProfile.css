@@ -112,3 +112,50 @@
   display: inline-block;
   line-height: 1;
 }
+/* Input fields for editing */
+.input-field {
+  display: block;
+  margin: 10px auto;
+  font-size: 20px;
+  text-align: center;
+  padding: 5px;
+  width: 70%;
+  border: 2px solid #7a1c1c;
+  border-radius: 6px;
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: #fcbf49;
+  box-shadow: 0 0 5px #fcbf49;
+}
+
+/* Cancel button */
+.cancel-profile-btn {
+  width: 150px;
+  height: 50px;
+  font-size: 20px;
+  background: #ccc;
+  color: black;
+  border: none;
+  border-radius: 6px;
+  margin-top: 15px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* Subtle animation effects */
+.edit-profile-btn:hover,
+.cancel-profile-btn:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.card {
+  transition: all 0.25s ease;
+}
+
+.card:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import "../css/SettingsPage.css";
+import { Link } from "react-router-dom";
 import gearIcon from "../../assets/gear.png";
 
 function SettingsPage() {
@@ -16,7 +17,7 @@ function SettingsPage() {
         <div className="settings-right">
           <div className="settings-buttons">
             <div className="button-row">
-              <button className="settings-btn">About Us</button>
+              <Link to="/about" className="settings-btn">About Us</Link>
               <button className="settings-btn">Security</button>
             </div>
             <div className="button-row">

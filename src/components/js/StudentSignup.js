@@ -27,7 +27,7 @@ const StudentSignup = () => {
       alert("Passwords do not match!");
       return;
     }
-
+// StudentSignup.js (inside handleConfirm)
     try {
       const response = await axios.post("http://localhost:8080/api/buyers/register", {
         studentId: formData.studentId,
@@ -40,7 +40,9 @@ const StudentSignup = () => {
 
       console.log(response.data);
       alert("Registration successful!");
+      // ✅ Move to login after success
       navigate("/login");
+
     } catch (error) {
       console.error(error.response?.data || error.message);
       alert("Registration failed: " + (error.response?.data || error.message));

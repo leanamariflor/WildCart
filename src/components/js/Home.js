@@ -45,7 +45,7 @@ export default function Home() {
           ))}
         </div>
       </div>
-      <Product />
+      <Product className="product"/>
     </div>
   );
 }

@@ -26,13 +26,22 @@ const LoginForm = () => {
 
       // ✅ store user in context
       setUser(response.data);
+// LoginForm.js (inside handleLogin after setUser)
+      const selectedRole = localStorage.getItem("selectedRole");
 
-      // Navigate to profile/dashboard
+      // ✅ Navigate based on role
+    if (selectedRole === "student") {
       navigate("/home");
-    } catch (error) {
-      console.error(error.response?.data || error.message);
-      alert("Login failed: " + (error.response?.data || error.message));
+    } else if (selectedRole === "seller") {
+      navigate("/seller_profile");
+    } else {
+      navigate("/home"); // fallback
     }
+
+  } catch (error) {
+    console.error(error.response?.data || error.message);
+    alert("Login failed: " + (error.response?.data || error.message));
+  }
   };
 
   return (

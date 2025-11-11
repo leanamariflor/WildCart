@@ -3,6 +3,7 @@
   background: linear-gradient(to bottom, #fff7ed, #f9c66c);
   min-height: 100vh;
   color: #2b2b2b;
+  margin-top: 70px;
 }
 
 /* Transparent Header */
@@ -85,6 +86,7 @@
   align-items: start;
   gap: 3rem;
   padding: 2rem 5rem;
+  margin-top: 70px;
 }
 
 .product-gallery {

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import Header from "./Header";
+import HeaderSeller from "./HeaderSeller";
 import "../css/SellerProfile.css";
+import { Link } from "react-router-dom";
+
 import favicon from "../../assets/favicon.png"; // adjust path if needed
 
 const SellerProfile = () => {
@@ -41,7 +43,7 @@ const SellerProfile = () => {
 
   return (
     <div className="profile-page">
-      <Header />
+      <HeaderSeller />
 
       <div className="profile-header">
         <div className="header-left">
@@ -134,21 +136,22 @@ const SellerProfile = () => {
 
         {/* RIGHT: Action Cards */}
         <div className="profile-right">
-          <div
+          <Link
+          to="/posted"
             className="card"
-            onClick={() => handleCardClick("Products Posted")}
             title="View your posted products"
           >
             <img
               src={productsPostedIcon}
               alt="Products Posted"
               className="card-icon-img"
-            />
+              />
             <h3>Products Posted</h3>
-          </div>
-          <div
+            </Link>
+          
+          <Link
+          to="/orders"
             className="card"
-            onClick={() => handleCardClick("Orders & Reservations")}
             title="Check pending orders"
           >
             <img
@@ -157,7 +160,7 @@ const SellerProfile = () => {
               className="card-icon-img"
             />
             <h3>Orders & Reservations</h3>
-          </div>
+          </Link>
           <div
             className="card"
             onClick={() => handleCardClick("Done Orders")}
@@ -170,9 +173,9 @@ const SellerProfile = () => {
             />
             <h3>Done Orders</h3>
           </div>
-          <div
+          <Link
+          to="/create_post"
             className="card"
-            onClick={() => handleCardClick("Post a Product")}
             title="Add a new product listing"
           >
             <img
@@ -181,7 +184,7 @@ const SellerProfile = () => {
               className="card-icon-img"
             />
             <h3>Post a Product</h3>
-          </div>
+          </Link>
         </div>
       </div>
     </div>

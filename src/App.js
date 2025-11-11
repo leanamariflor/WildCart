@@ -23,6 +23,8 @@ import SettingsPage from "./components/js/SettingsPage";
 import { UserProvider } from "./context/UserContext";
 import { SelectionProvider } from "./context/SelectionContext";
 import { CartProvider } from "./context/CartContext";
+import CreatePost from "./components/js/CreatePost";
+import HeaderSeller from "./components/js/HeaderSeller";
 
 function App() {
   return (
@@ -51,6 +53,7 @@ function App() {
               <Route path="/posted" element={<PostedPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/create_post" element={<CreatePost />} />
 
             </Routes>
           </Router>

@@ -17,16 +17,15 @@
 }
 
 .about-hero {
-  text-align: center;
+  margin-left: 5%;
   padding: 3rem 0;
-  margin-bottom: 3rem;
 }
 
 .about-title {
   font-size: 3.5rem;
   font-weight: 700;
-  color: #8b4513;
-  margin-bottom: 1rem;
+  color: black;
+  margin-bottom: -2rem;
 }
 
 .about-subtitle {
@@ -42,11 +41,6 @@
   padding: 3rem;
   margin-bottom: 3rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.about-content {
-  max-width: 800px;
-  margin: 0 auto;
 }
 
 .section-title {
@@ -73,14 +67,15 @@
 }
 
 .values-section {
-  padding: 3rem 0;
+  padding: 2rem 0;
   margin-bottom: 3rem;
+  margin-left: 3%;
 }
 
 .values-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 2fr));
+  gap: 1rem;
 }
 
 .value-card {
@@ -156,16 +151,16 @@
 }
 
 .developers-section {
-  padding: 3rem 0;
-  margin-bottom: 3rem;
+  padding: 0;
 }
 
 .developers-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2.5rem;
-  max-width: 1000px;
+  gap: 9.5rem;
+  max-width: 1160px;
   margin: 0 auto;
+  margin-left: 120px;
 }
 
 .developer-card {

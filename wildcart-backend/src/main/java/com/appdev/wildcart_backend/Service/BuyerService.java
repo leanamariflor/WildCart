@@ -24,4 +24,19 @@ public class BuyerService {
         }
         return buyer;
     }
+
+    public BuyerEntity getBuyerById(Long id) {
+    return buyerRepository.findById(id).orElse(null);
+}
+
+public BuyerEntity updateBuyer(Long id, BuyerEntity updatedBuyer) {
+    return buyerRepository.findById(id).map(buyer -> {
+        buyer.setFirstName(updatedBuyer.getFirstName());
+        buyer.setLastName(updatedBuyer.getLastName());
+        buyer.setStudentId(updatedBuyer.getStudentId());
+        buyer.setNumber(updatedBuyer.getNumber());
+        return buyerRepository.save(buyer);
+    }).orElse(null);
+}
+
 }

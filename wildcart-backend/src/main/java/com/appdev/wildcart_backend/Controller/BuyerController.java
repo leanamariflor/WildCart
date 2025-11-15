@@ -33,4 +33,19 @@ public class BuyerController {
             return ResponseEntity.status(401).body(e.getMessage());
         }
     }
+
+    @GetMapping("/{id}")
+public ResponseEntity<BuyerEntity> getBuyerById(@PathVariable Long id) {
+    BuyerEntity buyer = buyerService.getBuyerById(id);
+    if (buyer != null) return ResponseEntity.ok(buyer);
+    return ResponseEntity.notFound().build();
+}
+
+@PutMapping("/{id}")
+public ResponseEntity<BuyerEntity> updateBuyer(@PathVariable Long id, @RequestBody BuyerEntity updatedBuyer) {
+    BuyerEntity buyer = buyerService.updateBuyer(id, updatedBuyer);
+    if (buyer != null) return ResponseEntity.ok(buyer);
+    return ResponseEntity.notFound().build();
+}
+
 }

@@ -15,29 +15,37 @@ function AboutPage() {
       <main className="main-content">
         <div className="about-hero">
           <h1 className="about-title">About Us</h1>
-          <p className="about-subtitle">
-            Connecting communities through local marketplace
-          </p>
         </div>
 
-        <div className="about-section">
-          <div className="about-content">
-            <h2 className="section-title">Our Story</h2>
-            <p className="section-text">
-              We started with a simple idea: to create a platform where Students can easily buy and sell
-              products within their local community. What began as a small project has grown into a
-              thriving marketplace that brings students together and supports local commerce.
-            </p>
-            <p className="section-text">
-              Our platform empowers individuals to turn their passions into businesses, whether it's
-              homemade cookies, handcrafted jewelry, or fresh flowers. We believe in the power of
-              community and the value of supporting local entrepreneurs.
-            </p>
+        <div className="developers-section">
+          <div className="developers-grid">
+            <div className="developer-card">
+              <div className="developer-photo">
+                <img src={dev1} alt="Developer 1" />
+              </div>
+              <h3 className="developer-name">Leana Belaguas</h3>
+              <p className="developer-role">Developer</p>
+            </div>
+
+            <div className="developer-card">
+              <div className="developer-photo">
+                <img src={dev2} alt="Developer 2" />
+              </div>
+              <h3 className="developer-name">Edralyn Bibera</h3>
+              <p className="developer-role">Developer</p>
+            </div>
+
+            <div className="developer-card">
+              <div className="developer-photo">
+                <img src={dev3} alt="Developer 3" />
+              </div>
+              <h3 className="developer-name">Richelle Jaducana</h3>
+              <p className="developer-role">Developer</p>
+            </div>
           </div>
         </div>
 
         <div className="values-section">
-          <h2 className="section-title centered">Our Values</h2>
           <div className="values-grid">
             <div className="value-card">
               <div className="value-icon">
@@ -74,7 +82,7 @@ function AboutPage() {
           </div>
         </div>
 
-        <div className="mission-section">
+        {/* <div className="mission-section">
           <div className="mission-content">
             <h2 className="section-title">Our Mission</h2>
             <p className="mission-text">
@@ -84,36 +92,7 @@ function AboutPage() {
               community bonds.
             </p>
           </div>
-        </div>
-
-        <div className="developers-section">
-          <h2 className="section-title centered">Our Developers</h2>
-          <div className="developers-grid">
-            <div className="developer-card">
-              <div className="developer-photo">
-                <img src={dev1} alt="Developer 1" />
-              </div>
-              <h3 className="developer-name">Leana Belaguas</h3>
-              <p className="developer-role">Developer</p>
-            </div>
-
-            <div className="developer-card">
-              <div className="developer-photo">
-                <img src={dev2} alt="Developer 2" />
-              </div>
-              <h3 className="developer-name">Edralyn Bibera</h3>
-              <p className="developer-role">Developer</p>
-            </div>
-
-            <div className="developer-card">
-              <div className="developer-photo">
-                <img src={dev3} alt="Developer 3" />
-              </div>
-              <h3 className="developer-name">Richelle Jaducana</h3>
-              <p className="developer-role">Developer</p>
-            </div>
-          </div>
-        </div>
+        </div> */}
 
       </main>
     </div>

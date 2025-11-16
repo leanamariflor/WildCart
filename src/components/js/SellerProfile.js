@@ -161,9 +161,9 @@ const SellerProfile = () => {
             />
             <h3>Orders & Reservations</h3>
           </Link>
-          <div
+          <Link
+          to="/done-orders"
             className="card"
-            onClick={() => handleCardClick("Done Orders")}
             title="View completed orders"
           >
             <img
@@ -172,7 +172,7 @@ const SellerProfile = () => {
               className="card-icon-img"
             />
             <h3>Done Orders</h3>
-          </div>
+          </Link>
           <Link
           to="/create_post"
             className="card"

@@ -36,7 +36,8 @@ const HelpPage = () => {
 
         {/* Right Section: TO */}
         <div className="help-right">
-          <h2 className="section-title">TO</h2>
+          <h2 className="section-title">TO:</h2>
+           <input type="text" className="to-input" />
           <textarea
             className="concern-textarea"
             placeholder="Please type your concerns here..."

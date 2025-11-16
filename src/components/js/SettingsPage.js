@@ -18,15 +18,15 @@ function SettingsPage() {
           <div className="settings-buttons">
             <div className="button-row">
               <Link to="/about" className="settings-btn">About Us</Link>
-              <button className="settings-btn">Security</button>
+              <Link to="/security" className="settings-btn">Security</Link>
             </div>
             <div className="button-row">
-              <button className="settings-btn">Privacy</button>
-              <button className="settings-btn">Earnings</button>
+              <Link to="/privacy" className="settings-btn">Privacy</Link>
+              <Link to="/earnings" className="settings-btn">Earnings</Link>
             </div>
             <div className="button-row">
-              <button className="settings-btn">Feedbacks</button>
-              <button className="settings-btn">Rules</button>
+              <Link to="/feedback" className="settings-btn">Feedbacks</Link>
+              <Link to="/rules" className="settings-btn">Rules</Link>
             </div>
           </div>
           <button className="logout-btn">LOGOUT</button>

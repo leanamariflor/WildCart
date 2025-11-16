@@ -58,6 +58,7 @@
   transition: 0.3s;
   font-size: 16px;
   border-radius: 4px;
+  text-decoration: none;
 }
 
 .settings-btn:hover {

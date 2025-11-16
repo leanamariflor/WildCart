@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import "../css/PrivacyPage.css";
-import favicon from "../../assets/favicon.png";
+import favicon from "../../../assets/favicon.png";
 
 const PrivacyPage = () => {
   return (

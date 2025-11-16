@@ -29,6 +29,11 @@ import Header from "./components/Shared/js/Header";
 import ProductsPage from "./components/Products/js/ProductsPage";
 import ViewProduct from "./components/Products/js/ViewProduct";
 
+import SecurityPage from "./components/Shared/js/SecurityPage";
+import PrivacyPage from "./components/Shared/js/PrivacyPage";
+import FeedbackPage from "./components/Shared/js/FeedbackPage";
+import EarningPage from "./components/Shared/js/EarningPage";
+import RulePage from "./components/Shared/js/RulePage";
 
 import CheckoutPage from "./components/Products/js/CheckoutPage";
 
@@ -67,6 +72,11 @@ function App() {
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/create_post" element={<CreatePost />} />
                 <Route path="/viewproduct/:id" element={<ViewProduct />} />
+                <Route path="/security" element={<SecurityPage />} />
+                <Route path="/privacy" element={<PrivacyPage />} />
+                <Route path="/feedback" element={<FeedbackPage />} />
+                <Route path="/earnings" element={<EarningPage />} />
+                <Route path="/rules" element={<RulePage />} />
               </Routes>
             </CartProvider>
           </OrdersProvider>

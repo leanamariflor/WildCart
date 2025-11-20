@@ -28,12 +28,11 @@
   justify-content: space-between;
   gap: 20px;
   padding: 20px;
-  margin-top: 180px; /* ⬅️ increase to push content a bit lower */
+  margin-top: 180px; 
 }
 
-/* Force spacing below the fixed navbar */
 .profile-page .profile-container {
-  margin-top: 160px !important; /* adjust: 160–200px for preferred gap */
+  margin-top: 160px !important;
 }
 
 /* LEFT PROFILE */

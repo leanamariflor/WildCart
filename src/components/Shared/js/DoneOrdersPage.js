@@ -14,7 +14,6 @@ const DoneOrdersPage = () => {
     { id: "005", name: "Waffles", status: "In stock", amount: "₱30.00", address: "Covered Court", date: "2025-09-13", delivery: "Processing" },
   ];
 
-  // Filter only done/delivered orders
   const doneOrders = orders.filter(order => order.delivery === "Delivered");
 
   return (

@@ -12,14 +12,15 @@ public class SellerService {
     private SellerRepository sellerRepository;
 
     public SellerEntity registerSeller(SellerEntity seller) throws Exception {
-        // Trim email to avoid whitespace issues
+      
         String email = seller.getEmail().trim().toLowerCase();
 
-         // 🧾 Debug logs — to confirm what’s happening
+     
     System.out.println("Checking email: " + email);
 
-        SellerEntity existingSeller = sellerRepository.findByEmail(email);
-       System.out.println("Existing seller: " + existingSeller); // will print null if not found
+        SellerEntity existingSeller = sellerRepository.findByEmail(email.trim());
+
+       System.out.println("Existing seller: " + existingSeller); 
        
         if (existingSeller != null) {
             throw new Exception("Email already registered: " + email);
@@ -43,7 +44,7 @@ public class SellerService {
                 .orElseThrow(() -> new Exception("Seller not found"));
         existingSeller.setFirstName(updatedSeller.getFirstName());
         existingSeller.setLastName(updatedSeller.getLastName());
-        existingSeller.setEmail(updatedSeller.getEmail().trim().toLowerCase());
+        existingSeller.setEmail(updatedSeller.getEmail().trim());
         existingSeller.setNumber(updatedSeller.getNumber());
         existingSeller.setPassword(updatedSeller.getPassword());
         return sellerRepository.save(existingSeller);

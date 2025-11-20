@@ -11,7 +11,7 @@ const EarningsPage = () => {
       <div className="earnings-card">
         <h1 className="earnings-title">Earnings Overview</h1>
 
-        {/* TOP SUMMARY CARDS */}
+       
         <div className="summary-grid">
 
           <div className="summary-box">
@@ -35,7 +35,7 @@ const EarningsPage = () => {
           </div>
         </div>
 
-        {/* BREAKDOWN */}
+    
         <div className="breakdown-section">
           <h2 className="breakdown-title">Earnings Breakdown</h2>
 

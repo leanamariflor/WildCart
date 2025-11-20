@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import HeaderSeller from "./HeaderSeller";
+import Header from "../../Shared/js/Header";
 import "../css/SellerProfile.css";
 import { Link } from "react-router-dom";
 
@@ -11,7 +11,6 @@ const SellerProfile = () => {
   const doneOrdersIcon = "https://cdn-icons-png.flaticon.com/512/3877/3877266.png";
   const postProductIcon = "https://cdn-icons-png.flaticon.com/512/3032/3032220.png";
 
-  // ✅ State for interactivity
   const [isEditing, setIsEditing] = useState(false);
   const [seller, setSeller] = useState({
     name: "Sophia Cruz",
@@ -20,7 +19,6 @@ const SellerProfile = () => {
     image: "https://i.pinimg.com/1200x/e8/d3/70/e8d370b7c8d07f1d74405dc9aa8346d9.jpg",
   });
 
-  // Handlers
   const handleEditToggle = () => setIsEditing(!isEditing);
 
   const handleSave = () => {
@@ -38,12 +36,11 @@ const SellerProfile = () => {
 
   const handleCardClick = (title) => {
     alert(`You clicked on "${title}"`);
-    // You can replace with a navigation later, e.g., navigate("/orders")
   };
 
   return (
     <div className="profile-page">
-      <HeaderSeller />
+      <Header />
 
       <div className="profile-header">
         <div className="header-left">
@@ -61,9 +58,9 @@ const SellerProfile = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+     
       <div className="profile-container">
-        {/* LEFT: Profile Info */}
+      
         <div className="profile-left">
           <label htmlFor="sellerImageUpload">
             <img
@@ -134,7 +131,7 @@ const SellerProfile = () => {
           )}
         </div>
 
-        {/* RIGHT: Action Cards */}
+      
         <div className="profile-right">
           <Link
           to="/posted"

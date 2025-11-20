@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import "../css/HelpPage.css";
-import favicon from "../../../assets/favicon.png"; // adjust path if needed
+import favicon from "../../../assets/favicon.png"; 
 
 const HelpPage = () => {
   return (
@@ -20,7 +20,7 @@ const HelpPage = () => {
       </div>
 
       <div className="help-container">
-        {/* Left Section: HELP */}
+     
         <div className="help-left">
           <h2 className="section-title">HELP</h2>
           <label htmlFor="concern-select" className="label">What is your concern?</label>
@@ -34,7 +34,7 @@ const HelpPage = () => {
           <button className="password-btn">How to change password</button>
         </div>
 
-        {/* Right Section: TO */}
+    
         <div className="help-right">
           <h2 className="section-title">TO:</h2>
            <input type="text" className="to-input" />

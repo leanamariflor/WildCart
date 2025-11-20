@@ -13,7 +13,7 @@ const SecurityPage = () => {
           <h1 className="security-title">Security</h1>
         </div>
 
-        {/* INTRODUCTION */}
+     
         <section className="security-section">
           <h2 className="section-title">1. Introduction</h2>
           <p>
@@ -22,7 +22,7 @@ const SecurityPage = () => {
           </p>
         </section>
 
-        {/* ACCOUNT SECURITY */}
+       
         <section className="security-section">
           <h2 className="section-title">2. Account Security</h2>
           <ul>
@@ -33,7 +33,7 @@ const SecurityPage = () => {
           </ul>
         </section>
 
-        {/* FACE-TO-FACE TRANSACTION SAFETY */}
+    
         <section className="security-section">
           <h2 className="section-title">3. Safety During Face-to-Face Transactions</h2>
           <ul>
@@ -45,7 +45,7 @@ const SecurityPage = () => {
           <p className="safety-label">WildCart encourages safe in-school meetups only.</p>
         </section>
 
-        {/* SYSTEM MONITORING */}
+    
         <section className="security-section">
           <h2 className="section-title">4. System Monitoring</h2>
           <ul>
@@ -56,7 +56,7 @@ const SecurityPage = () => {
           </ul>
         </section>
 
-        {/* DEVICE & BROWSER RECOMMENDATIONS */}
+      
         <section className="security-section">
           <h2 className="section-title">5. Device & Browser Recommendations</h2>
           <ul>

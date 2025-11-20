@@ -9,10 +9,10 @@ const FeedbackPage = () => {
 
       <div className="feedback-card">
 
-        {/* PAGE TITLE */}
+      
         <h1 className="feedback-title">Feedback & Ratings</h1>
 
-        {/* TOP SUMMARY SECTION */}
+       
         <div className="top-summary">
 
           <div className="summary-box">
@@ -38,12 +38,12 @@ const FeedbackPage = () => {
 
         </div>
 
-        {/* RECENT FEEDBACK */}
+       
         <h2 className="recent-title">Recent Feedback</h2>
 
         <div className="feedback-list">
 
-          {/* FEEDBACK CARD 1 */}
+         
           <div className="feedback-item">
             <div className="feedback-rating">⭐ 5.0</div>
             <p className="feedback-text">
@@ -55,7 +55,7 @@ const FeedbackPage = () => {
             <span className="verified-badge">✔ Verified FTF Purchase</span>
           </div>
 
-          {/* FEEDBACK CARD 2 */}
+        
           <div className="feedback-item">
             <div className="feedback-rating">⭐ 4.0</div>
             <p className="feedback-text">
@@ -67,7 +67,7 @@ const FeedbackPage = () => {
             <span className="verified-badge">✔ Verified FTF Purchase</span>
           </div>
 
-          {/* FEEDBACK CARD 3 */}
+        
           <div className="feedback-item">
             <div className="feedback-rating">⭐ 5.0</div>
             <p className="feedback-text">

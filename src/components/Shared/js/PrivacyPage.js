@@ -13,7 +13,7 @@ const PrivacyPage = () => {
           <h1 className="privacy-title">Privacy Policy</h1>
         </div>
 
-        {/* INTRODUCTION */}
+      
         <section className="privacy-section">
           <h2 className="section-title">1. Introduction</h2>
           <p>
@@ -26,7 +26,7 @@ const PrivacyPage = () => {
           </p>
         </section>
 
-        {/* INFORMATION WE COLLECT */}
+       
         <section className="privacy-section">
           <h2 className="section-title">2. Information We Collect</h2>
 
@@ -49,7 +49,7 @@ const PrivacyPage = () => {
           </ul>
         </section>
 
-        {/* HOW WE USE INFORMATION */}
+     
         <section className="privacy-section">
           <h2 className="section-title">3. How We Use Your Information</h2>
           <ul>
@@ -65,7 +65,7 @@ const PrivacyPage = () => {
           </ul>
         </section>
 
-        {/* SHARING OF INFORMATION */}
+       
         <section className="privacy-section">
           <h2 className="section-title">4. Sharing of Information</h2>
 

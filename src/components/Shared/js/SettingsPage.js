@@ -1,10 +1,37 @@
-import React from "react";
+import React, { useContext } from "react";
 import Header from "../../Shared/js/Header"; 
 import "../css/SettingsPage.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import gearIcon from "../../../assets/gear.png";
+import { UserContext } from "../../../context/UserContext";
+import { useCart } from "../../../context/CartContext";
+import { useSelection } from "../../../context/SelectionContext";
 
 function SettingsPage() {
+  const navigate = useNavigate();
+  const { setUser, setStudentData } = useContext(UserContext);
+  const { clearCart: clearCartContext } = useCart();
+  const { clearCart: clearSelectionCart } = useSelection();
+
+  const handleLogout = () => {
+    
+    if (setUser) setUser(null);
+    if (setStudentData) setStudentData(null);
+
+    
+    try {
+      if (clearCartContext) clearCartContext();
+      if (clearSelectionCart) clearSelectionCart();
+      localStorage.removeItem("cartItems");
+      localStorage.removeItem("orders");
+      localStorage.removeItem("selectedRole");
+    } catch (e) {
+      console.warn("Error clearing local storage on logout:", e);
+    }
+
+
+    navigate("/");
+  };
   return (
     <div className="settings-container">
       <Header />
@@ -29,7 +56,7 @@ function SettingsPage() {
               <Link to="/rules" className="settings-btn">Rules</Link>
             </div>
           </div>
-          <button className="logout-btn">LOGOUT</button>
+          <button className="logout-btn" onClick={handleLogout}>LOGOUT</button>
         </div>
       </main>
     </div>

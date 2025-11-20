@@ -1,43 +1,56 @@
 import React, { useState, useContext } from "react";
 import YellowPanel from "../../Shared/js/YellowPanel";
-import { useNavigate } from "react-router-dom";   
+import { useNavigate } from "react-router-dom";
 import "../css/LoginForm.css";
 import favicon from "../../../assets/favicon.png";
 import axios from "axios";
-import { UserContext } from "../../../context/UserContext"; 
+import { UserContext } from "../../../context/UserContext";
 
 const LoginForm = () => {
-  const { setUser } = useContext(UserContext); 
+  const { setUser } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8080/api/buyers/login", {
+      
+      const savedRole = localStorage.getItem("selectedRole")
+        ? String(localStorage.getItem("selectedRole")).toLowerCase()
+        : null;
+
+      
+      let loginUrl = "";
+      if (savedRole === "seller") {
+        loginUrl = "http://localhost:8080/api/sellers/login";
+      } else {
+        loginUrl = "http://localhost:8080/api/buyers/login";
+      }
+
+      const response = await axios.post(loginUrl, {
         email: email,
-        password: password
+        password: password,
       });
 
       console.log("LOGIN RESPONSE:", response.data);
 
       alert("Login successful!");
 
-      // Save full user data in context
-      setUser(response.data);
+     
+      const finalRole = savedRole || "buyer"; 
 
-      // Read role directly from backend response
-      const role = response.data.role?.toLowerCase();
+      const userWithRole = { ...response.data, role: finalRole };
+      setUser(userWithRole);
 
-      // Navigate based on role
-      if (role === "student" || role === "buyer") {
-        navigate("/home");
-      } else if (role === "seller") {
+    
+      if (finalRole === "seller") {
         navigate("/seller_profile");
+      } else if (finalRole === "buyer" || finalRole === "student") {
+        navigate("/home");
       } else {
-        console.warn("Unknown role detected:", role);
+        console.warn("Unknown role:", finalRole);
         navigate("/home");
       }
 
@@ -76,7 +89,7 @@ const LoginForm = () => {
         <button
           type="button"
           className="signup-btn"
-          onClick={() => navigate("/signup")}  
+          onClick={() => navigate("/signup")}
         >
           Sign up
         </button>

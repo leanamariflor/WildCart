@@ -1,5 +1,3 @@
-
-// SellerSignup.js
 import React, { useState } from "react";
 import YellowPanel from "../../Shared/js/YellowPanel";
 import favicon from "../../../assets/favicon.png"; 
@@ -31,7 +29,7 @@ const SellerSignup = () => {
     }
 
     try {
-      // ✅ Replace with your actual seller API endpoint
+    
       const response = await axios.post("http://localhost:8080/api/sellers/register", {
         studentId: formData.studentId,
         firstName: formData.firstName,
@@ -44,7 +42,6 @@ const SellerSignup = () => {
       console.log(response.data);
       alert("Seller registration successful! Please log in.");
 
-      // ✅ Go to login page after success
       navigate("/login");
 
     } catch (error) {

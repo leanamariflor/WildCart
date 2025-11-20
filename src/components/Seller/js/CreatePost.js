@@ -1,4 +1,3 @@
-// src/components/PostProduct.js
 import React, { useState } from "react";
 import Header from "../../Shared/js/Header"; 
 import "../css/CreatePost.css";

@@ -1,37 +1,30 @@
 import React, { useState, useContext } from "react";
 import YellowPanel from "../../Shared/js/YellowPanel";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";   
 import "../css/LoginForm.css";
 import favicon from "../../../assets/favicon.png";
 import axios from "axios";
-import { UserContext } from "../../../context/UserContext";
+import { UserContext } from "../../../context/UserContext"; 
 
 const LoginForm = () => {
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [role, setRole] = useState("student"); 
+  const navigate = useNavigate();  
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       
-      const savedRole = localStorage.getItem("selectedRole")
-        ? String(localStorage.getItem("selectedRole")).toLowerCase()
-        : null;
+      const endpoint = role === "seller"
+        ? "http://localhost:8080/api/sellers/login"
+        : "http://localhost:8080/api/buyers/login";
 
-      
-      let loginUrl = "";
-      if (savedRole === "seller") {
-        loginUrl = "http://localhost:8080/api/sellers/login";
-      } else {
-        loginUrl = "http://localhost:8080/api/buyers/login";
-      }
-
-      const response = await axios.post(loginUrl, {
+      const response = await axios.post(endpoint, {
         email: email,
-        password: password,
+        password: password
       });
 
       console.log("LOGIN RESPONSE:", response.data);
@@ -39,20 +32,17 @@ const LoginForm = () => {
       alert("Login successful!");
 
      
-      const finalRole = savedRole || "buyer"; 
-
-      const userWithRole = { ...response.data, role: finalRole };
+      const userWithRole = { ...response.data, role };
       setUser(userWithRole);
-
-    
-      if (finalRole === "seller") {
-        navigate("/seller_profile");
-      } else if (finalRole === "buyer" || finalRole === "student") {
-        navigate("/home");
-      } else {
-        console.warn("Unknown role:", finalRole);
-        navigate("/home");
+      
+      try {
+        localStorage.setItem("user", JSON.stringify(userWithRole));
+      } catch (e) {
+        console.warn("Failed to persist user to localStorage:", e);
       }
+      localStorage.setItem("selectedRole", role);
+
+      navigate("/home");
 
     } catch (error) {
       console.error(error.response?.data || error.message);
@@ -66,6 +56,17 @@ const LoginForm = () => {
       <form className="login-form" onSubmit={handleLogin}>
         <img src={favicon} alt="WildCart Logo" className="small-logo" />
         <h2>LOGIN</h2>
+
+        <label htmlFor="role">Role:</label>
+        <select
+          id="role"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className="role-select"
+        >
+          <option value="student">Buyer</option>
+          <option value="seller">Seller</option>
+        </select>
 
         <label>Email:</label>
         <input

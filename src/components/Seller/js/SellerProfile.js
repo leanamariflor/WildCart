@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import Header from "../../Shared/js/Header";
+import React, { useState, useEffect, useContext } from "react";
+import HeaderSeller from "./HeaderSeller";
 import "../css/SellerProfile.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-import favicon from "../../../assets/favicon.png"; 
+import favicon from "../../../assets/favicon.png";
+import defaultAvatar from "../../../assets/avatar.png";
+import { UserContext } from "../../../context/UserContext";
 
 const SellerProfile = () => {
   const productsPostedIcon = "https://cdn-icons-png.flaticon.com/512/1950/1950373.png";
@@ -12,35 +15,91 @@ const SellerProfile = () => {
   const postProductIcon = "https://cdn-icons-png.flaticon.com/512/3032/3032220.png";
 
   const [isEditing, setIsEditing] = useState(false);
-  const [seller, setSeller] = useState({
-    name: "Sophia Cruz",
-    id: "23-9756-345",
-    mobile: "098643624443",
-    image: "https://i.pinimg.com/1200x/e8/d3/70/e8d370b7c8d07f1d74405dc9aa8346d9.jpg",
-  });
+  const { user } = useContext(UserContext);
 
-  const handleEditToggle = () => setIsEditing(!isEditing);
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [sellerId, setSellerId] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [image, setImage] = useState(defaultAvatar);
+
+  useEffect(() => {
+    if (user?.id) {
+      axios
+        .get(`http://localhost:8080/api/sellers/${user.id}`)
+        .then((res) => {
+          setProfile(res.data);
+          setFirstName(res.data.firstName || "");
+          setLastName(res.data.lastName || "");
+          setSellerId(res.data.sellerId || "");
+          setMobile(res.data.number || "");
+        })
+        .catch((err) => console.error("Error fetching seller profile:", err))
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    console.log("SellerProfile user:", user);
+    console.log("SellerProfile profile:", profile);
+  }, [user, profile]);
+
+  const handleEditToggle = () => setIsEditing(true);
 
   const handleSave = () => {
-    setIsEditing(false);
-    alert("Profile updated successfully!");
+    if (!user?.id) {
+      alert("No user logged in");
+      return;
+    }
+
+    const updatedSeller = {
+      ...profile,
+      firstName,
+      lastName,
+      sellerId,
+      number: mobile,
+    };
+
+    console.log("Updating seller. URL:", `http://localhost:8080/api/sellers/${user.id}`);
+    console.log("Updating seller. Payload:", updatedSeller);
+
+    axios
+      .put(`http://localhost:8080/api/sellers/${user.id}`, updatedSeller)
+      .then((res) => {
+        setProfile(res.data);
+        setIsEditing(false);
+        alert("Profile updated successfully!");
+      })
+      .catch((err) => {
+        console.error("Error updating seller:", err);
+        const status = err?.response?.status;
+        const respData = err?.response?.data;
+        const msg = `Failed to update profile${status ? ` (status ${status})` : ''}: ${respData || err.message}`;
+        alert(msg);
+      });
   };
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const imgURL = URL.createObjectURL(file);
-      setSeller((prev) => ({ ...prev, image: imgURL }));
+      setImage(imgURL);
     }
   };
 
   const handleCardClick = (title) => {
     alert(`You clicked on "${title}"`);
+   
   };
 
   return (
     <div className="profile-page">
-      <Header />
+      <HeaderSeller />
 
       <div className="profile-header">
         <div className="header-left">
@@ -60,11 +119,11 @@ const SellerProfile = () => {
 
      
       <div className="profile-container">
-      
+       
         <div className="profile-left">
           <label htmlFor="sellerImageUpload">
             <img
-              src={seller.image}
+              src={image || defaultAvatar}
               alt="Seller"
               className="profile-image"
               title={isEditing ? "Click to change image" : ""}
@@ -86,26 +145,30 @@ const SellerProfile = () => {
               <input
                 type="text"
                 className="input-field"
-                value={seller.name}
-                onChange={(e) =>
-                  setSeller((prev) => ({ ...prev, name: e.target.value }))
-                }
+                placeholder="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
               <input
                 type="text"
                 className="input-field"
-                value={seller.id}
-                onChange={(e) =>
-                  setSeller((prev) => ({ ...prev, id: e.target.value }))
-                }
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
               <input
                 type="text"
                 className="input-field"
-                value={seller.mobile}
-                onChange={(e) =>
-                  setSeller((prev) => ({ ...prev, mobile: e.target.value }))
-                }
+                placeholder="Seller ID"
+                value={sellerId}
+                onChange={(e) => setSellerId(e.target.value)}
+              />
+              <input
+                type="text"
+                className="input-field"
+                placeholder="Mobile Number"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
               />
               <div>
                 <button className="edit-profile-btn" onClick={handleSave}>
@@ -121,9 +184,11 @@ const SellerProfile = () => {
             </>
           ) : (
             <>
-              <h2 className="profile-name">{seller.name}</h2>
-              <p className="profile-info">{seller.id}</p>
-              <p className="profile-info">Mobile No.: {seller.mobile}</p>
+              <h2 className="profile-name">
+                {profile ? `${profile.firstName || ''} ${profile.lastName || ''}`.trim() : 'Seller'}
+              </h2>
+              <p className="profile-info">Seller ID: {profile?.sellerId || user?.sellerId || sellerId}</p>
+              <p className="profile-info">Mobile: {profile?.number || mobile}</p>
               <button className="edit-profile-btn" onClick={handleEditToggle}>
                 Edit Profile
               </button>
@@ -131,7 +196,7 @@ const SellerProfile = () => {
           )}
         </div>
 
-      
+     
         <div className="profile-right">
           <Link
           to="/posted"

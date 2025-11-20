@@ -27,7 +27,6 @@ const StudentSignup = () => {
       alert("Passwords do not match!");
       return;
     }
-
     try {
       const response = await axios.post("http://localhost:8080/api/buyers/register", {
         studentId: formData.studentId,

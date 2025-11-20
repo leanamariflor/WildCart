@@ -25,6 +25,8 @@ function SettingsPage() {
       localStorage.removeItem("cartItems");
       localStorage.removeItem("orders");
       localStorage.removeItem("selectedRole");
+      localStorage.removeItem("user");
+      localStorage.removeItem("studentData");
     } catch (e) {
       console.warn("Error clearing local storage on logout:", e);
     }

@@ -1,11 +1,10 @@
-// OrdersContext.js
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 const OrdersContext = createContext();
 
 export const OrdersProvider = ({ children }) => {
   const [orders, setOrders] = useState(() => {
-    // Load from localStorage on initial render
+  
     const saved = localStorage.getItem("orders");
     return saved ? JSON.parse(saved) : [];
   });

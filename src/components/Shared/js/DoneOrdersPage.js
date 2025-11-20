@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../css/OrdersPage.css";
+import "../../Buyer/css/OrdersPage.css";
 import Header from "./Header"; 
 import { ChevronDown } from "lucide-react";
 

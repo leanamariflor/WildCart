@@ -18,8 +18,7 @@ public class SellerService {
      
     System.out.println("Checking email: " + email);
 
-        SellerEntity existingSeller = sellerRepository.findByEmail(email.trim());
-
+        SellerEntity existingSeller = sellerRepository.findByEmail(email);
        System.out.println("Existing seller: " + existingSeller); 
        
         if (existingSeller != null) {
@@ -44,6 +43,9 @@ public class SellerService {
                 .orElseThrow(() -> new Exception("Seller not found"));
         existingSeller.setFirstName(updatedSeller.getFirstName());
         existingSeller.setLastName(updatedSeller.getLastName());
+        if (updatedSeller.getSellerId() != null) {
+            existingSeller.setSellerId(updatedSeller.getSellerId());
+        }
         existingSeller.setEmail(updatedSeller.getEmail().trim());
         existingSeller.setNumber(updatedSeller.getNumber());
         existingSeller.setPassword(updatedSeller.getPassword());
@@ -56,5 +58,9 @@ public class SellerService {
 
     public java.util.List<SellerEntity> getAllSellers() {
         return sellerRepository.findAll();
+    }
+
+    public SellerEntity getSellerById(Long id) {
+        return sellerRepository.findById(id).orElse(null);
     }
 }

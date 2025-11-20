@@ -69,3 +69,26 @@
   margin-top: -5px;   
   margin-bottom: 5px;
 }
+
+.login-form .role-select {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #b22222;
+  border-radius: 4px;
+  width: 95%;
+  background-color: #ffffff;
+  font-size: 1rem;
+  color: #b22222;
+  transition: border-color 0.2s;
+}
+
+.login-form .role-select:focus {
+  border-color: #FFB73C;
+  outline: none;
+  background-color: #fff3cd;
+}
+
+.login-form .role-select option {
+  background: #fff8e1;
+  color: #b22222;
+}

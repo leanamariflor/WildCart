@@ -6,13 +6,13 @@ import sellerIcon from "../../../assets/seller.png";
 import favicon from "../../../assets/favicon.png";
 import { useNavigate } from "react-router-dom";
 
-// Signup.js
+
 
 const Signup = () => {
   const navigate = useNavigate();
 
   const handleRoleSelect = (role) => {
-    localStorage.setItem("selectedRole", role); // ✅ Save role
+    localStorage.setItem("selectedRole", role); 
     if (role === "student") {
       navigate("/signup/student");
     } else if (role === "seller") {

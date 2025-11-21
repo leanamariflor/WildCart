@@ -1,4 +1,3 @@
-// src/components/PostProduct.js
 import React, { useState } from "react";
 import Header from "../../Shared/js/Header"; 
 import "../css/CreatePost.css";
@@ -20,13 +19,13 @@ const PostProduct = () => {
     <div className="postproduct-page">
       <Header />
 
-      {/* Banner */}
+    
       <header className="post">
         <h1>“Post a New Product”</h1>
       </header>
 
       <div className="postproduct-container">
-        {/* ✅ White Card Wrapper */}
+      
         <div className="postproduct-card">
           <form className="postproduct-form" onSubmit={handleSubmit}>
             <div className="image-upload">
@@ -115,7 +114,7 @@ const PostProduct = () => {
             </div>
           </form>
         </div>
-        {/* End of white card */}
+       
       </div>
     </div>
   );

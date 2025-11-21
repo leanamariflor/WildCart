@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../css/OrdersPage.css";
+import "../../Buyer/css/OrdersPage.css";
 import Header from "./Header"; 
 import { ChevronDown } from "lucide-react";
 
@@ -14,7 +14,6 @@ const DoneOrdersPage = () => {
     { id: "005", name: "Waffles", status: "In stock", amount: "₱30.00", address: "Covered Court", date: "2025-09-13", delivery: "Processing" },
   ];
 
-  // Filter only done/delivered orders
   const doneOrders = orders.filter(order => order.delivery === "Delivered");
 
   return (

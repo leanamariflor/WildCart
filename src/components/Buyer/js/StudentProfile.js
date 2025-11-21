@@ -10,12 +10,12 @@ import "../css/StudentProfile.css";
 const StudentProfile = () => {
   const ordersIcon = "https://cdn-icons-png.flaticon.com/512/1007/1007959.png";
   const orderHistoryIcon = "https://cdn-icons-png.flaticon.com/512/2822/2822537.png";
-  const { user } = useContext(UserContext); // logged-in user from context
+  const { user } = useContext(UserContext);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Local states for editing
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [studentId, setStudentId] = useState("");

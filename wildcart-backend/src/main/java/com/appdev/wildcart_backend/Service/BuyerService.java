@@ -13,7 +13,6 @@ public class BuyerService {
     private BuyerRepository buyerRepository;
 
     public BuyerEntity registerBuyer(BuyerEntity buyer) {
-        // You can add validation here (email exists, password strength, etc.)
         return buyerRepository.save(buyer);
     }
 

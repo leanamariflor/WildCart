@@ -33,7 +33,7 @@ public class SellerController {
         }
     }
 
-    // Optional: CRUD endpoints
+    
     @GetMapping
     public ResponseEntity<?> getAllSellers() {
         return ResponseEntity.ok(sellerService.getAllSellers());
@@ -57,5 +57,12 @@ public class SellerController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SellerEntity> getSellerById(@PathVariable Long id) {
+        SellerEntity seller = sellerService.getSellerById(id);
+        if (seller != null) return ResponseEntity.ok(seller);
+        return ResponseEntity.notFound().build();
     }
 }

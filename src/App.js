@@ -5,6 +5,7 @@ import StudentSignup from "./components/Buyer/js/StudentSignup";
 import StudentProfile from "./components/Buyer/js/StudentProfile";
 import OrdersPage from "./components/Buyer/js/OrdersPage";
 import CartPage from "./components/Buyer/js/CartPage";
+import DoneOrdersPage from "./components/Shared/js/DoneOrdersPage";
 
 
 import SellerSignup from "./components/Seller/js/SellerSignup";
@@ -63,6 +64,7 @@ function App() {
                 <Route path="/home" element={<Home />} />
                 <Route path="/products" element={<ProductsPage />} />
                 <Route path="/orders" element={<OrdersPage />} />
+                <Route path="/done-orders" element={<DoneOrdersPage />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/viewproduct" element={<ViewProduct />} />
                 <Route path="/checkout" element={<CheckoutPage />} />

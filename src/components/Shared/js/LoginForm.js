@@ -10,13 +10,19 @@ const LoginForm = () => {
   const { setUser } = useContext(UserContext); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("student"); 
   const navigate = useNavigate();  
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8080/api/buyers/login", {
+      
+      const endpoint = role === "seller"
+        ? "http://localhost:8080/api/sellers/login"
+        : "http://localhost:8080/api/buyers/login";
+
+      const response = await axios.post(endpoint, {
         email: email,
         password: password
       });
@@ -25,21 +31,18 @@ const LoginForm = () => {
 
       alert("Login successful!");
 
-      // Save full user data in context
-      setUser(response.data);
-
-      // Read role directly from backend response
-      const role = response.data.role?.toLowerCase();
-
-      // Navigate based on role
-      if (role === "student" || role === "buyer") {
-        navigate("/home");
-      } else if (role === "seller") {
-        navigate("/seller_profile");
-      } else {
-        console.warn("Unknown role detected:", role);
-        navigate("/home");
+     
+      const userWithRole = { ...response.data, role };
+      setUser(userWithRole);
+      
+      try {
+        localStorage.setItem("user", JSON.stringify(userWithRole));
+      } catch (e) {
+        console.warn("Failed to persist user to localStorage:", e);
       }
+      localStorage.setItem("selectedRole", role);
+
+      navigate("/home");
 
     } catch (error) {
       console.error(error.response?.data || error.message);
@@ -53,6 +56,17 @@ const LoginForm = () => {
       <form className="login-form" onSubmit={handleLogin}>
         <img src={favicon} alt="WildCart Logo" className="small-logo" />
         <h2>LOGIN</h2>
+
+        <label htmlFor="role">Role:</label>
+        <select
+          id="role"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className="role-select"
+        >
+          <option value="student">Buyer</option>
+          <option value="seller">Seller</option>
+        </select>
 
         <label>Email:</label>
         <input
@@ -76,7 +90,7 @@ const LoginForm = () => {
         <button
           type="button"
           className="signup-btn"
-          onClick={() => navigate("/signup")}  
+          onClick={() => navigate("/signup")}
         >
           Sign up
         </button>

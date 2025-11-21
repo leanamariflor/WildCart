@@ -76,6 +76,7 @@
   border-radius: 4px;
   box-shadow: 2px 2px 0 #631a13;
   transition: 0.3s;
+   text-decoration: none;
 }
 
 .logout-btn:hover {

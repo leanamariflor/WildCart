@@ -29,7 +29,7 @@ function SettingsPage() {
               <Link to="/rules" className="settings-btn">Rules</Link>
             </div>
           </div>
-          <button className="logout-btn">LOGOUT</button>
+          <Link to="/login" className="logout-btn">LOGOUT</Link>
         </div>
       </main>
     </div>

@@ -1,11 +1,11 @@
-package com.appdev.wildcart_backend.Controller;
+package com.appdevg4.syntheque.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.appdev.wildcart_backend.Entity.BuyerEntity;
-import com.appdev.wildcart_backend.Service.BuyerService;
+import com.appdevg4.syntheque.entity.BuyerEntity;
+import com.appdevg4.syntheque.service.BuyerService;
 
 @RestController
 @RequestMapping("/api/buyers")

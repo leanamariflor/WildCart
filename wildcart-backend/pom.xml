@@ -6,13 +6,13 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.5.6</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/> 
 	</parent>
-	<groupId>com.appdev</groupId>
-	<artifactId>wildcart-backend</artifactId>
+	<groupId>com.appdevg4</groupId>
+	<artifactId>syntheque</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>wildcart-backend</name>
-	<description>Demo project for Spring Boot</description>
+	<name>WildCart</name>
+	<description>Shop smart, shop fast. Your one-stop online marketplace.</description>
 	<url/>
 	<licenses>
 		<license/>

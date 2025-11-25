@@ -1,9 +1,9 @@
-package com.appdev.wildcart_backend.Service;
+package com.appdevg4.syntheque.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.appdev.wildcart_backend.Entity.SellerEntity;
-import com.appdev.wildcart_backend.Repository.SellerRepository;
+import com.appdevg4.syntheque.entity.SellerEntity;
+import com.appdevg4.syntheque.repository.SellerRepository;
 
 @Service
 public class SellerService {
@@ -12,22 +12,13 @@ public class SellerService {
     private SellerRepository sellerRepository;
 
     public SellerEntity registerSeller(SellerEntity seller) throws Exception {
-      
         String email = seller.getEmail().trim().toLowerCase();
-
-     
-    System.out.println("Checking email: " + email);
-
         SellerEntity existingSeller = sellerRepository.findByEmail(email);
-       System.out.println("Existing seller: " + existingSeller); 
-       
         if (existingSeller != null) {
             throw new Exception("Email already registered: " + email);
         }
-
         seller.setEmail(email);
         return sellerRepository.save(seller);
-
     }
 
     public SellerEntity loginSeller(String email, String password) throws Exception {

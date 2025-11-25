@@ -1,10 +1,10 @@
-package com.appdev.wildcart_backend.Controller;
+package com.appdevg4.syntheque.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.appdev.wildcart_backend.Entity.SellerEntity;
-import com.appdev.wildcart_backend.Service.SellerService;
+import com.appdevg4.syntheque.entity.SellerEntity;
+import com.appdevg4.syntheque.service.SellerService;
 
 @RestController
 @RequestMapping("/api/sellers")
@@ -33,7 +33,6 @@ public class SellerController {
         }
     }
 
-    
     @GetMapping
     public ResponseEntity<?> getAllSellers() {
         return ResponseEntity.ok(sellerService.getAllSellers());

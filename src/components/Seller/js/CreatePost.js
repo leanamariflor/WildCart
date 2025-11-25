@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../Shared/js/Header"; 
+import { useNavigate } from "react-router-dom";
 import "../css/CreatePost.css";
 
 const PostProduct = () => {
@@ -14,6 +15,8 @@ const PostProduct = () => {
     e.preventDefault();
     alert("Product posted successfully!");
   };
+
+  const navigate = useNavigate();
 
   return (
     <div className="postproduct-page">
@@ -103,7 +106,7 @@ const PostProduct = () => {
                 <button
                   type="button"
                   className="cancel-btn"
-                  onClick={() => (window.location.href = "/sellerprofile")}
+                  onClick={() => navigate('/seller_profile')}
                 >
                   CANCEL
                 </button>

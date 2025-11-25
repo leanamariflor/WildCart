@@ -1,10 +1,10 @@
-package com.appdev.wildcart_backend.Service;
+package com.appdevg4.syntheque.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.appdev.wildcart_backend.Entity.BuyerEntity;
-import com.appdev.wildcart_backend.Repository.BuyerRepository;
+import com.appdevg4.syntheque.entity.BuyerEntity;
+import com.appdevg4.syntheque.repository.BuyerRepository;
 
 @Service
 public class BuyerService {
@@ -25,17 +25,16 @@ public class BuyerService {
     }
 
     public BuyerEntity getBuyerById(Long id) {
-    return buyerRepository.findById(id).orElse(null);
-}
+        return buyerRepository.findById(id).orElse(null);
+    }
 
-public BuyerEntity updateBuyer(Long id, BuyerEntity updatedBuyer) {
-    return buyerRepository.findById(id).map(buyer -> {
-        buyer.setFirstName(updatedBuyer.getFirstName());
-        buyer.setLastName(updatedBuyer.getLastName());
-        buyer.setStudentId(updatedBuyer.getStudentId());
-        buyer.setNumber(updatedBuyer.getNumber());
-        return buyerRepository.save(buyer);
-    }).orElse(null);
-}
-
+    public BuyerEntity updateBuyer(Long id, BuyerEntity updatedBuyer) {
+        return buyerRepository.findById(id).map(buyer -> {
+            buyer.setFirstName(updatedBuyer.getFirstName());
+            buyer.setLastName(updatedBuyer.getLastName());
+            buyer.setStudentId(updatedBuyer.getStudentId());
+            buyer.setNumber(updatedBuyer.getNumber());
+            return buyerRepository.save(buyer);
+        }).orElse(null);
+    }
 }

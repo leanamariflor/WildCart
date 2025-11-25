@@ -1,4 +1,4 @@
-package com.appdevg4.syntheque.Controller;
+package com.appdevg4.syntheque.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

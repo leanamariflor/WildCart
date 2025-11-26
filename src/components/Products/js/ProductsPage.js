@@ -2,15 +2,40 @@ import { useState } from 'react';
 import {  ChevronDown } from 'lucide-react';
 import { ProductCard } from './ProductCard';
 import { CategoryFilter } from '../../Products/js/CategoryFilter';
-import { products, categories } from '../../../data/mockdata';
+import { products } from '../../../data/mockdata';
+import { useEffect } from 'react';
+import { fetchCategories } from '../../../api/api';
 import "../css/Product.css";
 
 
 export function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [sortBy, setSortBy] = useState('popular');
   const [visibleProducts, setVisibleProducts] = useState(8);
+
+  // Load categories from backend when component mounts
+  useEffect(() => {
+    let mounted = true;
+    fetchCategories()
+      .then((data) => {
+        if (!mounted) return;
+        setCategories(data);
+      })
+      .catch((e) => {
+        console.warn('Could not fetch categories from backend, falling back to mock data', e);
+        // fallback: use categories from mockdata if available
+        import('../../../data/mockdata').then((m) => {
+          if (!mounted) return;
+          setCategories(m.categories || []);
+        });
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const handleToggleCategory = (categoryName) => {
     setSelectedCategories((prev) =>

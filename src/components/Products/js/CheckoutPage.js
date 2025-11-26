@@ -15,13 +15,19 @@ export default function CheckoutPage() {
     removeFromCart(id);
   };
 
-  const handlePay = () => {
+  const handlePay = async () => {
     if (cartItems.length === 0) {
       alert("Your cart is empty!");
       return;
     }
-    addOrder(cartItems);
-    setShowPopup(true);
+    try {
+      await addOrder(cartItems);
+      setShowPopup(true);
+    } catch (err) {
+      console.error('Failed to create order', err);
+      alert('There was a problem creating your order. Please try again later.');
+      return;
+    }
 
     setTimeout(() => {
       clearCart();

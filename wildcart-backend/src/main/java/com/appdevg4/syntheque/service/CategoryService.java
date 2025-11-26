@@ -26,19 +26,11 @@ public class CategoryService {
     }
 
     //UPDATE
-    @SuppressWarnings("finally")
     public CategoryEntity updateCategory(int id, CategoryEntity newCategory) {
-        CategoryEntity category = null;
-
-        try {
-            category = categoryRepository.findById(id).get();
+        return categoryRepository.findById(id).map(category -> {
             category.setName(newCategory.getName());
-            category = categoryRepository.save(category);
-        } catch (NoSuchElementException e) {
-            throw new NoSuchElementException("Category ID " + id + " does not exist!");
-        } finally {
             return categoryRepository.save(category);
-        }
+        }).orElseThrow(() -> new NoSuchElementException("Category ID " + id + " does not exist!"));
     }
 
     // DELETE

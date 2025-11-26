@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../Shared/js/Header"; 
 import { useNavigate } from "react-router-dom";
 import "../css/CreatePost.css";
@@ -11,10 +11,23 @@ const PostProduct = () => {
     if (file) setImagePreview(URL.createObjectURL(file));
   };
 
+  const [categories, setCategories] = useState([]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("Product posted successfully!");
   };
+
+  useEffect(() => {
+    let mounted = true;
+    import('../../../api/api').then(({ fetchCategories }) => {
+      fetchCategories()
+        .then((cats) => mounted && setCategories(cats))
+        .catch(() => mounted && setCategories([]));
+    }).catch(() => {});
+
+    return () => { mounted = false; };
+  }, []);
 
   const navigate = useNavigate();
 
@@ -89,10 +102,18 @@ const PostProduct = () => {
                   <label className="label">Category</label>
                   <select className="input" required>
                     <option value="">Select</option>
-                    <option>Foods</option>
-                    <option>Drinks</option>
-                    <option>Accessories</option>
-                    <option>Collectibles</option>
+                    {categories.length === 0 ? (
+                      <>
+                        <option>Foods</option>
+                        <option>Drinks</option>
+                        <option>Accessories</option>
+                        <option>Collectibles</option>
+                      </>
+                    ) : (
+                      categories.map((c) => (
+                        <option key={c.id} value={c.name}>{c.name}</option>
+                      ))
+                    )}
                   </select>
                 </div>
 

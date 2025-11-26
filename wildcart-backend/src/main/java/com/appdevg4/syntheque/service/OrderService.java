@@ -26,20 +26,13 @@ public class OrderService {
     }
 
     // UPDATE
-    @SuppressWarnings("finally")
     public OrderEntity updateOrder(int id, OrderEntity newOrder) {
-        OrderEntity order = null;
-
-        try {
-            order = orderRepository.findById(id).get();
+        return orderRepository.findById(id).map(order -> {
             order.setOrderName(newOrder.getOrderName());
             order.setAmount(newOrder.getAmount());
-            order = orderRepository.save(order);
-        } catch (NoSuchElementException e) {
-            throw new NoSuchElementException("Order ID " + id + " does not exist!");
-        } finally {
+            order.setStatus(newOrder.getStatus());
             return orderRepository.save(order);
-        }
+        }).orElseThrow(() -> new NoSuchElementException("Order ID " + id + " does not exist!"));
     }
 
     // DELETE

@@ -1,63 +1,71 @@
 import { ChevronDown } from "lucide-react";
 import Header from "../../Shared/js/Header"; 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../css/PostedPage.css";
 
 function PostedPage() {
-  const posts = [
-    { id: "001", name: "Cookies", status: "In stock", amount: "3x", address: "NGE Study Area", date: "2025-09-10", postStatus: "Posted" },
-    { id: "002", name: "Bracelet", status: "In stock", amount: "5x", address: "Espacio", date: "2025-09-11", postStatus: "Posted" },
-    { id: "003", name: "Mac and cheese", status: "In stock", amount: "4x", address: "Canteen", date: "2025-09-12", postStatus: "Posted" },
-    { id: "004", name: "Flower bouquet", status: "In stock", amount: "4x", address: "Espacio", date: "2025-09-11", postStatus: "Posted" },
-    { id: "005", name: "Waffles", status: "Out of stock", amount: "0", address: "Covered Court", date: "2025-09-13", postStatus: "Hide" },
-  ];
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/products")
+      .then(res => res.json())
+      .then(data => setPosts(data))
+      .catch(() => console.log("❌ Failed to fetch products"));
+  }, []);
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  
+  const openModal = (id) => {
+    setSelectedId(id);
+    setShowModal(true);
+  };
+
+  const confirmDelete = async () => {
+    await fetch(`http://localhost:8080/api/products/delete/${selectedId}`, { method: "DELETE" });
+    setPosts(prev => prev.filter(p => p.id !== selectedId));
+    setShowModal(false);
+    setSelectedId(null);
+  };
 
   return (
     <div className="app-container">
-      <Header /> {}
+      <Header />
 
       <main className="main-content">
         <div className="content-header">
           <h1 className="page-title">My Posts</h1>
-          <div className="filter-dropdown">
-            <button className="dropdown-button">
-              <span>Last 7 days</span>
-              <ChevronDown className="dropdown-icon" />
-            </button>
-          </div>
         </div>
-
-        <h2 className="table-title">My Posts</h2>
 
         <div className="table-container">
           <table className="posts-table">
             <thead>
               <tr className="table-header">
-                <th>PRODUCT NO.</th>
-                <th>PRODUCT NAME</th>
-                <th>PRODUCT STATUS</th>
-                <th>AMOUNT</th>
-                <th>ADDRESS</th>
-                <th>POST DATE</th>
-                <th>STATUS</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Stocks</th>
+                <th>Address</th>
+                <th>Date Added</th>
+                <th>Action</th>
               </tr>
             </thead>
+
             <tbody>
               {posts.map((post) => (
                 <tr key={post.id} className="table-row">
                   <td>{post.id}</td>
                   <td>{post.name}</td>
-                  <td>{post.status}</td>
-                  <td>{post.amount}</td>
+                  <td>{post.stocks}</td>
                   <td>{post.address}</td>
-                  <td>{post.date}</td>
+                  <td>{post.dateAdded?.split("T")[0]}</td>
+
                   <td>
-                    <div className="status-cell">
-                      <span>{post.postStatus}</span>
-                      <button className="dropdown-toggle">
-                        <ChevronDown className="toggle-icon" />
-                      </button>
-                    </div>
+                    <button 
+                      className="delete-btn"
+                      onClick={() => openModal(post.id)}
+                    >
+                      DELETE ❌
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -65,6 +73,25 @@ function PostedPage() {
           </table>
         </div>
       </main>
+
+      {showModal && (
+        <div className="delete-modal-overlay">
+          <div className="delete-modal-box">
+            <h3>Are you sure you want to delete this product?</h3>
+            <p>This action cannot be undone.</p>
+
+            <div className="modal-btn-group">
+              <button className="modal-cancel-btn" onClick={() => setShowModal(false)}>
+                Cancel
+              </button>
+
+              <button className="modal-confirm-btn" onClick={confirmDelete}>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

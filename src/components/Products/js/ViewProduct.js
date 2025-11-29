@@ -30,7 +30,7 @@ export default function ViewProduct() {
 
       <main className="viewproduct-content">
         <div className="product-gallery">
-          {product.images.map((img, idx) => (
+          {product.imageUrls?.map((img, idx) => (
             <img key={idx} src={img} alt={product.name} />
           ))}
         </div>

@@ -1,85 +1,72 @@
-import { useState } from 'react';
-import {  ChevronDown } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ChevronDown } from 'lucide-react';
 import { ProductCard } from './ProductCard';
 import { CategoryFilter } from '../../Products/js/CategoryFilter';
-import { products } from '../../../data/mockdata';
-import { useEffect } from 'react';
-import { fetchCategories } from '../../../api/api';
 import "../css/Product.css";
 
-
 export function ProductsPage() {
+  const [products, setProducts] = useState([]);  
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [categories, setCategories] = useState([]);
   const [sortBy, setSortBy] = useState('popular');
   const [visibleProducts, setVisibleProducts] = useState(8);
 
-  // Load categories from backend when component mounts
   useEffect(() => {
-    let mounted = true;
-    fetchCategories()
-      .then((data) => {
-        if (!mounted) return;
-        setCategories(data);
+    fetch("http://localhost:8080/api/products")
+      .then(res => res.json())
+      .then(data => {
+        console.log("Fetched Products:", data); 
+        setProducts(Array.isArray(data) ? data : []); // prevents crash
       })
-      .catch((e) => {
-        console.warn('Could not fetch categories from backend, falling back to mock data', e);
-        // fallback: use categories from mockdata if available
-        import('../../../data/mockdata').then((m) => {
-          if (!mounted) return;
-          setCategories(m.categories || []);
-        });
-      });
-
-    return () => {
-      mounted = false;
-    };
+      .catch(() => console.log("❌ Failed to load products"));
   }, []);
 
-  const handleToggleCategory = (categoryName) => {
-    setSelectedCategories((prev) =>
-      prev.includes(categoryName)
-        ? prev.filter((c) => c !== categoryName)
-        : [...prev, categoryName]
-    );
-  };
 
-  const filteredProducts = products.filter((product) => {
-    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory =
-      selectedCategories.length === 0 || selectedCategories.includes(product.category);
-    return matchesSearch && matchesCategory;
-  });
+  useEffect(() => {
+    import('../../../api/api')
+      .then(({ fetchCategories }) => fetchCategories())
+      .then(data => setCategories(data))
+      .catch(() => console.log("⚠ No category data"));
+  }, []);
+
+
+  const filteredProducts = Array.isArray(products)
+    ? products.filter((product) => {
+        const matchesSearch = product.name?.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesCategory =
+          selectedCategories.length === 0 || selectedCategories.includes(product.category);
+        return matchesSearch && matchesCategory;
+      })
+    : [];
 
   const displayedProducts = filteredProducts.slice(0, visibleProducts);
 
-  const loadMore = () => {
-    setVisibleProducts((prev) => prev + 8);
-  };
+  
+  const loadMore = () => setVisibleProducts((prev) => prev + 8);
 
   return (
     <div className="product-page">
-
       <main className="main-content">
         <div className="content-wrapper">
           <div className="content-layout">
+
             <aside className="sidebar">
               <CategoryFilter
                 categories={categories}
                 selectedCategories={selectedCategories}
-                onToggleCategory={handleToggleCategory}
+                onToggleCategory={(c)=> setSelectedCategories(prev =>
+                  prev.includes(c) ? prev.filter(x=>x!==c) : [...prev,c]
+                )}
               />
             </aside>
 
+            
             <div className="products-section">
+
               <div className="sort-container">
                 <div className="sort-wrapper">
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    className="sort-select"
-                  >
+                  <select value={sortBy} onChange={(e)=> setSortBy(e.target.value)} className="sort-select">
                     <option value="popular">Popular</option>
                     <option value="price-low">Price: Low to High</option>
                     <option value="price-high">Price: High to Low</option>
@@ -89,22 +76,25 @@ export function ProductsPage() {
                 </div>
               </div>
 
+              
               <div className="products-grid">
-                {displayedProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
+                {displayedProducts.length > 0 ? (
+                  displayedProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))
+                ) : (
+                  <p>No products found...</p>
+                )}
               </div>
 
               {visibleProducts < filteredProducts.length && (
                 <div className="load-more-container">
-                  <button
-                    onClick={loadMore}
-                    className="load-more-button"
-                  >
+                  <button className="load-more-button" onClick={loadMore}>
                     Load more products
                   </button>
                 </div>
               )}
+
             </div>
           </div>
         </div>

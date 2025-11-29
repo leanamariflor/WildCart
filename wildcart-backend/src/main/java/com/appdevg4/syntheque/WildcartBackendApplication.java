@@ -19,10 +19,10 @@ public class WildcartBackendApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedOriginPatterns("*")      // <— correct
+                        .allowedMethods("*")             // allow all
                         .allowedHeaders("*")
-                        .allowCredentials(true);
+                        .allowCredentials(false);        // avoid error
             }
         };
     }

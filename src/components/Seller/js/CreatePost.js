@@ -1,147 +1,218 @@
 import React, { useState, useEffect } from "react";
-import Header from "../../Shared/js/Header"; 
+import Header from "../../Shared/js/Header";
 import { useNavigate } from "react-router-dom";
 import "../css/CreatePost.css";
 
-const PostProduct = () => {
-  const [imagePreview, setImagePreview] = useState(null);
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) setImagePreview(URL.createObjectURL(file));
-  };
-
-  const [categories, setCategories] = useState([]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Product posted successfully!");
-  };
-
-  useEffect(() => {
-    let mounted = true;
-    import('../../../api/api').then(({ fetchCategories }) => {
-      fetchCategories()
-        .then((cats) => mounted && setCategories(cats))
-        .catch(() => mounted && setCategories([]));
-    }).catch(() => {});
-
-    return () => { mounted = false; };
-  }, []);
+export default function PostProduct() {
 
   const navigate = useNavigate();
 
+  const [product, setProduct] = useState({
+    name: "",
+    price: "",
+    description: "",
+    stocks: "",
+    address: "",
+    category: "",
+    noteToBuyer: ""
+  });
+
+  const [images, setImages] = useState([]); 
+
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [showViewer, setShowViewer] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files);
+
+    if (files.length + images.length > 4) {
+      alert("⚠ Only 4 images allowed.");
+      return;
+    }
+
+    setImages(prev => [...prev, ...files]);
+  };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (images.length === 0) {
+      setShowError(true);
+      setTimeout(() => setShowError(false), 1800);
+      return;
+    }
+
+    const formData = new FormData();
+    images.forEach(file => formData.append("files", file));
+
+    const uploadRes = await fetch("http://localhost:8080/api/products/upload", {
+      method: "POST",
+      body: formData
+    });
+
+    const uploadedUrls = await uploadRes.json();
+    console.log("Cloudinary returned URLs →", uploadedUrls);
+
+    if (!Array.isArray(uploadedUrls) || uploadedUrls.length === 0) {
+      alert("⚠ Images failed to upload.");
+      setShowError(true);
+      return;
+    }
+
+    const saveRes = await fetch("http://localhost:8080/api/products/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...product, imageUrls: uploadedUrls })
+    });
+
+    console.log("DB save response →", saveRes.status);
+
+    if (saveRes.ok) {
+      setShowSuccess(true);
+
+      setTimeout(() => {
+      setShowSuccess(false);
+      navigate("/products");
+  }, 2000);
+    } else {
+      setShowError(true);
+      setTimeout(() => setShowError(false), 2000);
+    }
+  };
+
+
+  useEffect(() => {
+    import('../../../api/api')
+      .then(({ fetchCategories }) => fetchCategories())
+      .then((c) => setCategories(c))
+      .catch(() => setCategories([]));
+  }, []);
+
   return (
     <div className="postproduct-page">
-      <Header />
-
-    
-      <header className="post">
-        <h1>“Post a New Product”</h1>
-      </header>
+      <Header/>
+      <header className="post"><h1>“Post a New Product”</h1></header>
 
       <div className="postproduct-container">
-      
         <div className="postproduct-card">
-          <form className="postproduct-form" onSubmit={handleSubmit}>
+
+          <form onSubmit={handleSubmit} className="postproduct-form">
+
+           
             <div className="image-upload">
               <label htmlFor="productImage" className="image-label">
-                {imagePreview ? (
-                  <img
-                    src={imagePreview}
-                    alt="Preview"
-                    className="preview-image"
-                  />
-                ) : (
-                  <div className="image-placeholder">
-                    <i className="fa-regular fa-image"></i>
+                {images.length ? (
+                  <div className="preview-grid">
+                    {images.map((img,i)=>(
+                      <div key={i} className="image-box">
+                        <img src={URL.createObjectURL(img)} className="preview-image"/>
+
+                        <button className="delete-img" onClick={(e)=>{
+                          e.preventDefault()
+                          setImages(images.filter((_,idx)=>idx!==i))
+                        }}>
+                          ✖
+                        </button>
+                      </div>
+                    ))}
                   </div>
+                ) : (
+                  <div className="image-placeholder"><i className="fa-regular fa-image"></i></div>
                 )}
               </label>
-              <input
-                id="productImage"
-                type="file"
-                accept="image/*"
+
+              <input type="file" id="productImage" accept="image/*" multiple
+                style={{display:"none"}}
                 onChange={handleImageUpload}
-                style={{ display: "none" }}
               />
-              <p className="note">Note: Pls upload 4 Photos of the product</p>
+
+              <p className="image-count">{images.length}/4 uploaded</p>
+              {images.length>0 && <button className="view-btn" onClick={(e)=>{e.preventDefault();setShowViewer(true)}}>View</button>}
             </div>
 
+
+            
             <div className="form-fields">
               <div className="form-row">
-                <label className="label">Product Name</label>
-                <input type="text" className="input wide" required />
+                <label>Product Name</label>
+                <input required onChange={(e)=>setProduct({...product,name:e.target.value})}/>
               </div>
 
               <div className="form-grid">
                 <div>
-                  <label className="label">Price</label>
-                  <div className="price-field">
-                    <span>₱</span>
-                    <input type="number" required />
+                  <label>Price</label>
+                  <div className="price-field"><span>₱</span>
+                    <input type="number" required onChange={(e)=>setProduct({...product,price:e.target.value})}/>
                   </div>
                 </div>
 
-                <div>
-                  <label className="label">Product description</label>
-                  <input type="text" className="input" required />
-                </div>
+                <div><label>Description</label><input required onChange={(e)=>setProduct({...product,description:e.target.value})}/></div>
+                <div><label>Stocks</label><input type="number" min="1" required onChange={(e)=>setProduct({...product,stocks:e.target.value})}/></div>
+                <div><label>Address</label><input required onChange={(e)=>setProduct({...product,address:e.target.value})}/></div>
 
                 <div>
-                  <label className="label">Stocks</label>
-                  <input type="number" className="input" min="1" required />
-                </div>
-
-                <div>
-                  <label className="label">Address</label>
-                  <input type="text" className="input" required />
-                </div>
-
-                <div>
-                  <label className="label">Category</label>
-                  <select className="input" required>
+                  <label>Category</label>
+                  <select required onChange={(e)=>setProduct({...product,category:e.target.value})}>
                     <option value="">Select</option>
-                    {categories.length === 0 ? (
+                    {categories.length? categories.map(c=> <option key={c.id}>{c.name}</option>) :
                       <>
-                        <option>Foods</option>
-                        <option>Drinks</option>
-                        <option>Accessories</option>
-                        <option>Collectibles</option>
+                        <option>Foods</option><option>Drinks</option><option>Accessories</option><option>Collectables</option>
                       </>
-                    ) : (
-                      categories.map((c) => (
-                        <option key={c.id} value={c.name}>{c.name}</option>
-                      ))
-                    )}
+                    }
                   </select>
                 </div>
 
-                <div>
-                  <label className="label">Note to Buyers</label>
-                  <input type="text" className="input" />
-                </div>
+                <div><label>Note To Buyer</label><input onChange={(e)=>setProduct({...product,noteToBuyer:e.target.value})}/></div>
               </div>
 
               <div className="form-buttons">
-                <button
-                  type="button"
-                  className="cancel-btn"
-                  onClick={() => navigate('/seller_profile')}
-                >
-                  CANCEL
-                </button>
-                <button type="submit" className="post-btn">
-                  POST
-                </button>
+                <button type="button" className="cancel-btn" onClick={()=>navigate('/seller_profile')}>CANCEL</button>
+                <button type="submit" className="post-btn">POST</button>
               </div>
             </div>
           </form>
         </div>
-       
       </div>
+
+
+      
+      {showViewer && (
+        <div className="image-viewer">
+          <div className="viewer-content">
+            <h3>Uploaded Images</h3>
+            <div className="viewer-grid">
+              {images.map((img,i)=>(
+                <div key={i} className="viewer-box">
+                  <img src={URL.createObjectURL(img)}/>
+                  <button onClick={()=>setImages(images.filter((_,idx)=>idx!==i))}>Delete</button>
+                </div>
+              ))}
+            </div>
+            <button className="close-view" onClick={()=>setShowViewer(false)}>Close</button>
+          </div>
+        </div>
+      )}
+
+     
+      {showSuccess && (
+        <div className="success-toast">
+          <span className="check-icon">✔</span>
+          <p>Product Posted Successfully</p>
+        </div>
+      )}
+
+      
+      {showError && (
+        <div className="error-toast">
+          <span className="error-icon">✖</span>
+          <p>Upload Failed</p>
+        </div>
+      )}
+
     </div>
   );
-};
-
-export default PostProduct;
+}

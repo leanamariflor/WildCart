@@ -6,13 +6,11 @@ const OrdersContext = createContext();
 export const OrdersProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
 
-  // load orders from backend (falls back to localStorage if backend fails)
   useEffect(() => {
     let mounted = true;
     fetchOrders()
       .then((data) => {
         if (!mounted) return;
-        // map backend OrderEntity to UI shape used by the app
         const mapped = data.map((o) => ({
           id: o.orderId,
           name: o.orderName,
@@ -25,7 +23,6 @@ export const OrdersProvider = ({ children }) => {
         setOrders(mapped);
       })
       .catch(() => {
-        // fallback to localStorage (previous behavior)
         const saved = localStorage.getItem("orders");
         setOrders(saved ? JSON.parse(saved) : []);
       });
@@ -36,7 +33,6 @@ export const OrdersProvider = ({ children }) => {
   }, []);
 
   const addOrder = async (cartItems) => {
-    // Build payload expected by backend
     const orderPayload = {
       orderName: cartItems.map((item) => item.name).join(", "),
       amount: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0),
@@ -45,9 +41,9 @@ export const OrdersProvider = ({ children }) => {
 
     try {
       const saved = await createOrder(orderPayload);
-      const createdOrderId = saved.orderId || saved.id; // backend returns orderId
+      const createdOrderId = saved.orderId || saved.id; 
 
-      // create order items in backend
+      
       await Promise.all(
         cartItems.map((item) =>
           createOrderItem({
@@ -59,7 +55,6 @@ export const OrdersProvider = ({ children }) => {
         )
       );
 
-      // push to local state (UI-friendly shape)
       const uiOrder = {
         id: createdOrderId,
         name: orderPayload.orderName,
@@ -72,18 +67,18 @@ export const OrdersProvider = ({ children }) => {
 
       setOrders((prev) => [...prev, uiOrder]);
 
-      // update local storage as a fallback store
+      
       try {
         localStorage.setItem("orders", JSON.stringify([...orders, uiOrder]));
       } catch (e) {
-        // ignore storage errors
+      
       }
 
       return uiOrder;
     } catch (err) {
       console.error("Error creating order on backend, falling back to local only: ", err);
 
-      // fallback: create locally (previous behavior)
+      
       const newOrder = {
         id: Date.now(),
         name: cartItems.map((item) => item.name).join(", "),

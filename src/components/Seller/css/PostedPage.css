@@ -165,3 +165,44 @@
   text-align: left;
   padding-left: 0.5rem;
 }
+
+/* ------- DELETE MODAL ------- */
+.delete-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.delete-modal-box {
+  background: #fff;
+  width: 320px;
+  padding: 22px 25px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 5px 16px rgba(0,0,0,0.25);
+}
+
+.modal-btn-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+
+.modal-cancel-btn {
+  background: #cfcfcf;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-confirm-btn {
+  background: #d9534f;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}

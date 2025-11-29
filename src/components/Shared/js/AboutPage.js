@@ -82,18 +82,6 @@ function AboutPage() {
           </div>
         </div>
 
-        {/* <div className="mission-section">
-          <div className="mission-content">
-            <h2 className="section-title">Our Mission</h2>
-            <p className="mission-text">
-              To create the most trusted and vibrant local marketplace where Students from CIT can
-              discover unique products, support their classmates, Schoolmates, and friends, and build lasting relationships.
-              We envision a world where local commerce thrives and every transaction strengthens
-              community bonds.
-            </p>
-          </div>
-        </div> */}
-
       </main>
     </div>
   );

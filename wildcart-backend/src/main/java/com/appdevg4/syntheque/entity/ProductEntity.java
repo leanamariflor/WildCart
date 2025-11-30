@@ -1,6 +1,7 @@
 package com.appdevg4.syntheque.entity;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,12 @@ public class ProductEntity {
     private Integer stocks;
     private String address;
     private String category;
+
+    // New relational mapping
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    private CategoryEntity categoryEntity;
     private String noteToBuyer;
 
 
@@ -52,6 +59,9 @@ public class ProductEntity {
 
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
+
+    public CategoryEntity getCategoryEntity() { return categoryEntity; }
+    public void setCategoryEntity(CategoryEntity categoryEntity) { this.categoryEntity = categoryEntity; }
 
     public String getNoteToBuyer() { return noteToBuyer; }
     public void setNoteToBuyer(String noteToBuyer) { this.noteToBuyer = noteToBuyer; }

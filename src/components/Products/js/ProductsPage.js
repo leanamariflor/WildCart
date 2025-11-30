@@ -1,16 +1,27 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { ProductCard } from './ProductCard';
+import { FaSearch } from "react-icons/fa";
 import { CategoryFilter } from '../../Products/js/CategoryFilter';
+import Header from '../../Shared/js/Header';
 import "../css/Product.css";
 
 export function ProductsPage() {
   const [products, setProducts] = useState([]);  
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [categories, setCategories] = useState([]);
   const [sortBy, setSortBy] = useState('popular');
   const [visibleProducts, setVisibleProducts] = useState(8);
+
+  // Sync searchQuery from URL param 'search'
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const q = params.get('search') || '';
+    setSearchQuery(q);
+  }, [location.search]);
 
   useEffect(() => {
     fetch("http://localhost:8080/api/products")
@@ -40,13 +51,36 @@ export function ProductsPage() {
       })
     : [];
 
-  const displayedProducts = filteredProducts.slice(0, visibleProducts);
+  // Sort products based on selected option
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    switch (sortBy) {
+      case 'price-low':
+        return (a.price || 0) - (b.price || 0);
+      case 'price-high':
+        return (b.price || 0) - (a.price || 0);
+      case 'newest':
+        return new Date(b.dateAdded || 0) - new Date(a.dateAdded || 0);
+      case 'popular':
+      default:
+        return 0; // Keep original order for popular
+    }
+  });
+
+  const displayedProducts = sortedProducts.slice(0, visibleProducts);
+
+  // Debug logging
+  useEffect(() => {
+    console.log("Selected Categories:", selectedCategories);
+    console.log("Filtered Products:", filteredProducts.length);
+    console.log("Sort By:", sortBy);
+  }, [selectedCategories, filteredProducts.length, sortBy]);
 
   
   const loadMore = () => setVisibleProducts((prev) => prev + 8);
 
   return (
     <div className="product-page">
+      <Header />
       <main className="main-content">
         <div className="content-wrapper">
           <div className="content-layout">
@@ -55,14 +89,33 @@ export function ProductsPage() {
               <CategoryFilter
                 categories={categories}
                 selectedCategories={selectedCategories}
-                onToggleCategory={(c)=> setSelectedCategories(prev =>
-                  prev.includes(c) ? prev.filter(x=>x!==c) : [...prev,c]
-                )}
+                onToggleCategory={(c)=> {
+                  console.log("Category clicked:", c);
+                  setSelectedCategories(prev =>
+                    prev.includes(c) ? prev.filter(x=>x!==c) : [...prev,c]
+                  );
+                }}
+                onClearFilters={() => setSelectedCategories([])}
               />
             </aside>
 
             
             <div className="products-section">
+              
+              <div className="products-search-container">
+                <input
+                  type="text"
+                  className="products-search-input"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="products-search-button"
+                  aria-label="Search"
+                ><FaSearch /></button>
+              </div>
 
               <div className="sort-container">
                 <div className="sort-wrapper">

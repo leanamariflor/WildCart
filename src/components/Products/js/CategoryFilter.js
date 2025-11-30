@@ -1,5 +1,5 @@
 import "../css/CategoryFilter.css";
-export function CategoryFilter({ categories, selectedCategories, onToggleCategory }) {
+export function CategoryFilter({ categories, selectedCategories, onToggleCategory, onClearFilters }) {
   return (
     <div className="category-filter">
       <h2 className="category-filter-title">Categories</h2>
@@ -21,6 +21,14 @@ export function CategoryFilter({ categories, selectedCategories, onToggleCategor
           </label>
         ))}
       </div>
+      {selectedCategories.length > 0 && (
+        <button 
+          className="clear-filters-btn"
+          onClick={onClearFilters}
+        >
+          Clear Filters
+        </button>
+      )}
     </div>
   );
 }

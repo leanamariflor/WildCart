@@ -1,16 +1,28 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaSearch, FaShoppingCart, FaCog } from "react-icons/fa";
 import favicon from "../../../assets/favicon.png";
 import "../css/HeaderSeller.css";
 import { UserContext } from "../../../context/UserContext";
 import { useCart } from "../../../context/CartContext"; 
 
-const HeaderSeller = () => {
+const HeaderSeller = ({ onSearchChange }) => {
   const { user } = useContext(UserContext);
   const { cartItems } = useCart();
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+  const navigate = useNavigate();
+  const [term, setTerm] = useState("");
+
+  const submitSearch = () => {
+    const q = term.trim();
+    if (onSearchChange) {
+      onSearchChange(q);
+    } else {
+      navigate(q ? `/products?search=${encodeURIComponent(q)}` : "/products");
+    }
+  };
 
   return (
     <nav className="navbar">
@@ -20,8 +32,18 @@ const HeaderSeller = () => {
       </div>
 
       <div className="search">
-        <input type="text" placeholder="Search..." />
-        <button><FaSearch /></button>
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={term}
+          onChange={(e) => {
+            const v = e.target.value;
+            setTerm(v);
+            if (onSearchChange) onSearchChange(v.trim());
+          }}
+          onKeyDown={(e) => { if (e.key === 'Enter') submitSearch(); }}
+        />
+        <button onClick={submitSearch} aria-label="Search"><FaSearch /></button>
       </div>
 
       <div className="nav-links">

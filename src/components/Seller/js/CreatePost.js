@@ -156,11 +156,11 @@ export default function PostProduct() {
 
                 <div>
                   <label>Category</label>
-                  <select required onChange={(e)=>setProduct({...product,category:e.target.value})}>
+                  <select required value={product.category} onChange={(e)=>setProduct({...product,category:e.target.value})}>
                     <option value="">Select</option>
-                    {categories.length? categories.map(c=> <option key={c.id}>{c.name}</option>) :
+                    {categories.length? categories.map(c=> <option key={c.id} value={c.name}>{c.name}</option>) :
                       <>
-                        <option>Foods</option><option>Drinks</option><option>Accessories</option><option>Collectables</option>
+                        <option value="Foods">Foods</option><option value="Drinks">Drinks</option><option value="Accessories">Accessories</option><option value="Collectables">Collectables</option>
                       </>
                     }
                   </select>

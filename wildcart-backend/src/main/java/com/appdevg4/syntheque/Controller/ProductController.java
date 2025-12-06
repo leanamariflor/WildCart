@@ -57,4 +57,16 @@ public class ProductController {
         return ResponseEntity.ok("Product deleted");
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ProductEntity> updateProduct(
+            @PathVariable Long id,
+            @RequestBody ProductEntity updatedProduct
+    ) {
+        ProductEntity updated = service.updateProduct(id, updatedProduct);
+
+        return updated != null
+                ? ResponseEntity.ok(updated)
+                : ResponseEntity.notFound().build();
+    }
+
 }

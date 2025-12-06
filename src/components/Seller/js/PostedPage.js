@@ -2,9 +2,11 @@ import { ChevronDown } from "lucide-react";
 import Header from "../../Shared/js/Header"; 
 import React, { useEffect, useState } from "react";
 import "../css/PostedPage.css";
+import { useNavigate } from "react-router-dom"; // <-- added
 
 function PostedPage() {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate(); // <-- added
 
   useEffect(() => {
     fetch("http://localhost:8080/api/products")
@@ -60,6 +62,15 @@ function PostedPage() {
                   <td>{post.dateAdded?.split("T")[0]}</td>
 
                   <td>
+                    {/* NEW EDIT BUTTON */}
+                    <button 
+                      className="edit-btn"
+                      onClick={() => navigate(`/edit/${post.id}`)}
+                    >
+                      EDIT ✏️
+                    </button>
+
+                    {/* EXISTING DELETE BUTTON */}
                     <button 
                       className="delete-btn"
                       onClick={() => openModal(post.id)}

@@ -79,6 +79,7 @@ function App() {
                 <Route path="/feedback" element={<FeedbackPage />} />
                 <Route path="/earnings" element={<EarningPage />} />
                 <Route path="/rules" element={<RulePage />} />
+                <Route path="/edit/:id" element={<CreatePost />} />
               </Routes>
             </CartProvider>
           </OrdersProvider>

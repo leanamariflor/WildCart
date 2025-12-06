@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import {
-  Search,
-  CheckSquare,
-  Square,
-  Plus,
-  Minus,
-} from "lucide-react";
+import { Search, CheckSquare, Square, Plus, Minus } from "lucide-react";
 import "../css/CartPage.css";
 import { useCart } from "../../../context/CartContext";
 import { useNavigate } from "react-router-dom";
-import Header from "../../Shared/js/Header"; 
+import Header from "../../Shared/js/Header";
 
 export default function CartPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -38,10 +32,12 @@ export default function CartPage() {
   const selectedItems = cartItems.filter((item) =>
     selectedProducts.includes(item.id)
   );
+
   const subtotal = selectedItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
   const total = subtotal;
 
   const handleGoToCheckout = () => {
@@ -68,8 +64,12 @@ export default function CartPage() {
                     selectedProducts.includes(item.id) ? "selected" : ""
                   }`}
                 >
+                  {/* 🔥 FIXED IMAGE (no crash anymore) */}
                   <img
-                    src={item.images[0]}
+                    src={
+                      item.imageUrls?.[0] ||
+                      "/placeholder.png" // fallback image
+                    }
                     alt={item.name}
                     className="cart-item-img"
                   />

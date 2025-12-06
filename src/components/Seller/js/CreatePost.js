@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../Shared/js/Header";
 import { useNavigate } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import "../css/CreatePost.css";
+
 
 export default function PostProduct() {
 
   const navigate = useNavigate();
+
+    const { id } = useParams();
+  const location = useLocation();
+  const isEdit = location.pathname.includes("/edit");
 
   const [product, setProduct] = useState({
     name: "",
@@ -37,52 +43,55 @@ export default function PostProduct() {
   };
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (images.length === 0) {
-      setShowError(true);
-      setTimeout(() => setShowError(false), 1800);
-      return;
-    }
+  let uploadedUrls = [];
 
+  // Identify new files if editing
+  const newFiles = images.filter(img => !img.existing);
+
+  if (newFiles.length > 0) {
     const formData = new FormData();
-    images.forEach(file => formData.append("files", file));
+    newFiles.forEach(file => formData.append("files", file));
 
     const uploadRes = await fetch("http://localhost:8080/api/products/upload", {
       method: "POST",
       body: formData
     });
 
-    const uploadedUrls = await uploadRes.json();
-    console.log("Cloudinary returned URLs →", uploadedUrls);
+    uploadedUrls = await uploadRes.json();
+  }
 
-    if (!Array.isArray(uploadedUrls) || uploadedUrls.length === 0) {
-      alert("⚠ Images failed to upload.");
-      setShowError(true);
-      return;
-    }
-
-    const saveRes = await fetch("http://localhost:8080/api/products/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...product, imageUrls: uploadedUrls })
-    });
-
-    console.log("DB save response →", saveRes.status);
-
-    if (saveRes.ok) {
-      setShowSuccess(true);
-
-      setTimeout(() => {
-      setShowSuccess(false);
-      navigate("/products");
-  }, 2000);
-    } else {
-      setShowError(true);
-      setTimeout(() => setShowError(false), 2000);
-    }
+  const payload = {
+    ...product,
+    imageUrls: [
+      ...images.filter(i => i.existing).map(i => i.url),
+      ...uploadedUrls
+    ]
   };
+
+  const endpoint = isEdit
+    ? `http://localhost:8080/api/products/update/${id}`
+    : `http://localhost:8080/api/products/add`;
+
+  const method = isEdit ? "PUT" : "POST";
+
+  const saveRes = await fetch(endpoint, {
+    method,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+
+  if (saveRes.ok) {
+    setShowSuccess(true);
+    setTimeout(() => {
+      navigate("/products");
+    }, 2000);
+  } else {
+    setShowError(true);
+  }
+};
 
 
   useEffect(() => {
@@ -91,6 +100,26 @@ export default function PostProduct() {
       .then((c) => setCategories(c))
       .catch(() => setCategories([]));
   }, []);
+
+  useEffect(() => {
+    if (isEdit) {
+      fetch(`http://localhost:8080/api/products/${id}`)
+        .then(res => res.json())
+        .then(data => {
+          setProduct({
+            name: data.name,
+            price: data.price,
+            description: data.description,
+            stocks: data.stocks,
+            address: data.address,
+            category: data.category,
+            noteToBuyer: data.noteToBuyer
+          });
+
+          setImages(data.imageUrls?.map(url => ({ existing: true, url })) || []);
+        });
+    }
+  }, [isEdit, id]);
 
   return (
     <div className="postproduct-page">
@@ -109,7 +138,11 @@ export default function PostProduct() {
                   <div className="preview-grid">
                     {images.map((img,i)=>(
                       <div key={i} className="image-box">
-                        <img src={URL.createObjectURL(img)} className="preview-image"/>
+                        
+                        <img 
+                          src={img.existing ? img.url : URL.createObjectURL(img)} 
+                          className="preview-image"
+                        />
 
                         <button className="delete-img" onClick={(e)=>{
                           e.preventDefault()
@@ -187,7 +220,7 @@ export default function PostProduct() {
             <div className="viewer-grid">
               {images.map((img,i)=>(
                 <div key={i} className="viewer-box">
-                  <img src={URL.createObjectURL(img)}/>
+                  <img src={img.existing ? img.url : URL.createObjectURL(img)} />
                   <button onClick={()=>setImages(images.filter((_,idx)=>idx!==i))}>Delete</button>
                 </div>
               ))}

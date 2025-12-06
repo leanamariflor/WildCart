@@ -30,6 +30,41 @@ public class ProductService {
         return repo.save(product);
     }
 
+    public ProductEntity updateProduct(Long id, ProductEntity updated) {
+        return repo.findById(id).map(existing -> {
+
+            existing.setName(updated.getName());
+            existing.setPrice(updated.getPrice());
+            existing.setDescription(updated.getDescription());
+            existing.setStocks(updated.getStocks());
+            existing.setAddress(updated.getAddress());
+            existing.setNoteToBuyer(updated.getNoteToBuyer());
+
+            existing.setCategory(updated.getCategory());
+            applyCategoryBinding(existing);
+
+            // Update images
+            existing.setImageUrls(updated.getImageUrls());
+
+            return repo.save(existing);
+
+        }).orElse(null);
+    }
+
+    private void applyCategoryBinding(ProductEntity product) {
+        if (product.getCategoryEntity() == null &&
+                product.getCategory() != null &&
+                !product.getCategory().isBlank()) {
+            categoryRepo.findByName(product.getCategory().trim())
+                    .ifPresent(product::setCategoryEntity);
+        }
+
+        if (product.getCategoryEntity() != null &&
+                (product.getCategory() == null || product.getCategory().isBlank())) {
+            product.setCategory(product.getCategoryEntity().getName());
+        }
+    }
+
     public List<ProductEntity> getAllProducts() {
         return repo.findAll();
     }
@@ -41,5 +76,7 @@ public class ProductService {
     public void deleteProduct(Long id) {
         repo.deleteById(id);
     }
+
+
 
 }

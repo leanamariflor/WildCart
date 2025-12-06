@@ -31,21 +31,6 @@ const HeaderSeller = ({ onSearchChange }) => {
         <span className="brand">WildCart</span>
       </div>
 
-      <div className="search">
-        <input
-          type="text"
-          placeholder="Search products..."
-          value={term}
-          onChange={(e) => {
-            const v = e.target.value;
-            setTerm(v);
-            if (onSearchChange) onSearchChange(v.trim());
-          }}
-          onKeyDown={(e) => { if (e.key === 'Enter') submitSearch(); }}
-        />
-        <button onClick={submitSearch} aria-label="Search"><FaSearch /></button>
-      </div>
-
       <div className="nav-links">
         <Link to="/home" className="nav-link">Home</Link>
         <Link to="/help" className="nav-link">Help</Link>

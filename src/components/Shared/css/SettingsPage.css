@@ -39,13 +39,15 @@
 .settings-buttons {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
+  width: 100%;
+  max-width: 500px;
 }
 
 .button-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
-  justify-content: center;
 }
 
 .settings-btn {
@@ -53,12 +55,17 @@
   color: #3b0b08;
   font-weight: 600;
   border: 2px solid #89261d;
-  padding: 10px 30px;
+  padding: 15px 30px;
   cursor: pointer;
   transition: 0.3s;
   font-size: 16px;
   border-radius: 4px;
   text-decoration: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
 }
 
 .settings-btn:hover {

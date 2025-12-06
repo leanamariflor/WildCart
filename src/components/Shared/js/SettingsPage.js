@@ -51,11 +51,11 @@ function SettingsPage() {
             </div>
             <div className="button-row">
               <Link to="/privacy" className="settings-btn">Privacy</Link>
-              <Link to="/earnings" className="settings-btn">Earnings</Link>
+              <Link to="/rules" className="settings-btn">Rules</Link>
             </div>
             <div className="button-row">
               <Link to="/feedback" className="settings-btn">Feedbacks</Link>
-              <Link to="/rules" className="settings-btn">Rules</Link>
+              <Link to="/help" className="settings-btn">Help</Link>
             </div>
           </div>
           <button className="logout-btn" onClick={handleLogout}>LOGOUT</button>

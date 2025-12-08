@@ -64,4 +64,10 @@ export async function updateCartItemQuantity(cartItemId, quantity) {
   return res.data;
 }
 
+export async function createPayment(payment) {
+  const res = await api.post("/payment/create", payment);
+  return res.data;
+}
+
+
 export default api;

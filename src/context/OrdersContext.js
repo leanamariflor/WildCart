@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { fetchOrders, createOrder, createOrderItem } from "../api/api";
+import { fetchOrders, createOrder, createOrderItem, createPayment} from "../api/api";
 
 const OrdersContext = createContext();
 
@@ -54,6 +54,14 @@ export const OrdersProvider = ({ children }) => {
           })
         )
       );
+      
+      await createPayment({
+        orderId: createdOrderId,
+        amount: orderPayload.amount,
+        status: "PAID",
+        method: "CASH"
+      });
+
 
       const uiOrder = {
         id: createdOrderId,

@@ -1,6 +1,10 @@
 package com.appdevg4.syntheque.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import com.appdevg4.syntheque.util.NoXss;
+import com.appdevg4.syntheque.util.NoSqlInjection;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "buyers")
@@ -9,11 +13,37 @@ public class BuyerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NoXss
+    @NoSqlInjection
+    @Size(max = 50)
     private String studentId;
+    
+    @NotBlank(message = "First name is required")
+    @NoXss
+    @NoSqlInjection
+    @Size(min = 2, max = 50)
     private String firstName;
+    
+    @NotBlank(message = "Last name is required")
+    @NoXss
+    @NoSqlInjection
+    @Size(min = 2, max = 50)
     private String lastName;
+    
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
+    @Size(max = 100)
     private String email;
+    
+    @NoXss
+    @NoSqlInjection
+    @Pattern(regexp = "^[0-9+\\-\\s()]*$", message = "Invalid phone number format")
+    @Size(max = 20)
     private String number;
+    
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, max = 255)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     public BuyerEntity() {}

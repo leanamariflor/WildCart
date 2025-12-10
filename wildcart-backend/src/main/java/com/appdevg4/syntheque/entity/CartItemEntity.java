@@ -22,8 +22,7 @@ public class CartItemEntity {
 @JsonIgnoreProperties({
     "hibernateLazyInitializer",
     "handler",
-    "categoryEntity",
-    "imageUrls"
+    "categoryEntity"
 })
 private ProductEntity product;
 

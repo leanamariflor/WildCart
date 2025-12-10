@@ -40,13 +40,24 @@ const SellerSignup = () => {
 
       console.log(response.data);
       alert("Seller registration successful! Please log in.");
-
-    
       navigate("/login");
-
     } catch (error) {
-      console.error(error.response?.data || error.message);
-      alert("Registration failed: " + (error.response?.data || error.message));
+      let errorMsg = "Unknown error";
+      if (error.response?.data) {
+        if (typeof error.response.data === "string") {
+          errorMsg = error.response.data;
+        } else if (error.response.data.errors) {
+          errorMsg = error.response.data.errors.map(e => e.defaultMessage || JSON.stringify(e)).join("\n");
+        } else if (error.response.data.message) {
+          errorMsg = error.response.data.message;
+        } else {
+          errorMsg = JSON.stringify(error.response.data);
+        }
+      } else {
+        errorMsg = error.message;
+      }
+      console.error("Registration failed:", errorMsg);
+      alert("Registration failed: " + errorMsg);
     }
   };
 

@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import "../css/LoginForm.css";
 import favicon from "../../../assets/favicon.png";
 import axios from "axios";
-import { UserContext } from "../../../context/UserContext"; 
+import { UserContext } from "../../../context/UserContext";
+import DOMPurify from 'dompurify'; 
 
 const LoginForm = () => {
   const { setUser } = useContext(UserContext); 
@@ -16,6 +17,10 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    // Sanitize inputs before sending
+    const sanitizedEmail = DOMPurify.sanitize(email.trim());
+    const sanitizedPassword = password; // Don't sanitize password, just send as-is
+
     try {
       
       const endpoint = role === "seller"
@@ -23,30 +28,53 @@ const LoginForm = () => {
         : "http://localhost:8080/api/buyers/login";
 
       const response = await axios.post(endpoint, {
-        email: email,
-        password: password
+        email: sanitizedEmail,
+        password: sanitizedPassword
       });
 
-      console.log("LOGIN RESPONSE:", response.data);
+      // Sanitize response data before using it
+      const sanitizedUser = {
+        id: response.data.id,
+        email: DOMPurify.sanitize(response.data.email || ''),
+        firstName: DOMPurify.sanitize(response.data.firstName || ''),
+        lastName: DOMPurify.sanitize(response.data.lastName || ''),
+        studentId: response.data.studentId ? DOMPurify.sanitize(response.data.studentId) : undefined,
+        sellerId: response.data.sellerId ? DOMPurify.sanitize(response.data.sellerId) : undefined,
+        number: response.data.number ? DOMPurify.sanitize(response.data.number) : undefined,
+        role
+      };
 
       alert("Login successful!");
 
      
-      const userWithRole = { ...response.data, role };
-      setUser(userWithRole);
+      setUser(sanitizedUser);
       
       try {
-        localStorage.setItem("user", JSON.stringify(userWithRole));
+        localStorage.setItem("user", JSON.stringify(sanitizedUser));
       } catch (e) {
-        console.warn("Failed to persist user to localStorage:", e);
+        console.warn("Failed to persist user to localStorage");
       }
       localStorage.setItem("selectedRole", role);
 
       navigate("/home");
 
     } catch (error) {
-      console.error(error.response?.data || error.message);
-      alert("Login failed: " + (error.response?.data || error.message));
+      let errorMsg = "An error occurred during login. Please try again.";
+      if (error.response?.data) {
+        if (typeof error.response.data === "string") {
+          // Sanitize error message to prevent XSS
+          errorMsg = DOMPurify.sanitize(error.response.data);
+        } else if (error.response.data.errors) {
+          const errors = error.response.data.errors.map(e => 
+            DOMPurify.sanitize(e.defaultMessage || 'Validation error')
+          );
+          errorMsg = errors.join(", ");
+        } else if (error.response.data.message) {
+          errorMsg = DOMPurify.sanitize(error.response.data.message);
+        }
+      }
+      console.error("Login failed");
+      alert(errorMsg);
     }
   };
 

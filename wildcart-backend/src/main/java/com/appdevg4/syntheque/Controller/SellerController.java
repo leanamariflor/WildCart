@@ -3,18 +3,22 @@ package com.appdevg4.syntheque.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
+import jakarta.validation.Valid;
 import com.appdevg4.syntheque.entity.SellerEntity;
 import com.appdevg4.syntheque.service.SellerService;
+import com.appdevg4.syntheque.dto.LoginRequest;
 
 @RestController
 @RequestMapping("/api/sellers")
+@Validated
 public class SellerController {
 
     @Autowired
     private SellerService sellerService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody SellerEntity seller) {
+    public ResponseEntity<?> register(@Valid @RequestBody SellerEntity seller) {
         try {
             SellerEntity savedSeller = sellerService.registerSeller(seller);
             return ResponseEntity.ok(savedSeller);
@@ -24,9 +28,9 @@ public class SellerController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody SellerEntity loginData) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
-            SellerEntity seller = sellerService.loginSeller(loginData.getEmail(), loginData.getPassword());
+            SellerEntity seller = sellerService.loginSeller(loginRequest.getEmail(), loginRequest.getPassword());
             return ResponseEntity.ok(seller);
         } catch (Exception e) {
             return ResponseEntity.status(401).body(e.getMessage());
@@ -39,7 +43,7 @@ public class SellerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateSeller(@PathVariable Long id, @RequestBody SellerEntity seller) {
+    public ResponseEntity<?> updateSeller(@PathVariable Long id, @Valid @RequestBody SellerEntity seller) {
         try {
             SellerEntity updated = sellerService.updateSeller(id, seller);
             return ResponseEntity.ok(updated);
